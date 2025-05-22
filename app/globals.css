@@ -1,42 +1,33 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: white;
+  --foreground: black;
+
+  --primary: #7c3aed; /* örnek: grape-600 */
+  --secondary: #f43f5e; /* örnek: rose-500 */
+  --accent: #10b981; /* örnek: emerald-500 */
+  --muted: #f3f4f6; /* örnek: gray-100 */
+
+  --text: #111827; /* örnek: gray-900 */
+  --border: #e5e7eb;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Dark mode için renkler */
+[data-theme="dark"] {
+  --background: #000000;
+  --foreground: #ffffff;
+
+  --primary: #c084fc; /* örnek: grape-400 */
+  --secondary: #fb7185; /* örnek: rose-400 */
+  --accent: #34d399; /* örnek: emerald-400 */
+  --muted: #1f2937; /* örnek: gray-800 */
+
+  --text: #f9fafb; /* örnek: gray-100 */
+  --border: #374151; /* örnek: gray-700 */
 }
 
-html,
+/* Uygulama genel stil örneği */
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+  background-color: var(--background);
+  color: var(--text);
+  font-family: var(--font-geist-sans), sans-serif;
 }
