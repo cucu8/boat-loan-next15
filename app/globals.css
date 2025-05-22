@@ -1,33 +1,25 @@
 :root {
-  --background: white;
-  --foreground: black;
+  --background: #f0f9ff; /* Açık gökyüzü */
+  --foreground: #0f172a; /* Lacivert metin */
 
-  --primary: #7c3aed; /* örnek: grape-600 */
-  --secondary: #f43f5e; /* örnek: rose-500 */
-  --accent: #10b981; /* örnek: emerald-500 */
-  --muted: #f3f4f6; /* örnek: gray-100 */
+  --primary: #3b82f6; /* Mavi: gökyüzü */
+  --secondary: #60a5fa; /* Açık mavi: su yansıması */
+  --accent: #22d3ee; /* Turkuaz: deniz vurgusu */
+  --muted: #e0f2fe; /* Buz mavisi */
 
-  --text: #111827; /* örnek: gray-900 */
-  --border: #e5e7eb;
+  --text: #0f172a; /* Lacivert metin */
+  --border: #bae6fd; /* Açık mavi çizgiler */
 }
 
-/* Dark mode için renkler */
 [data-theme="dark"] {
-  --background: #000000;
-  --foreground: #ffffff;
+  --background: #0f172a; /* Gece denizi */
+  --foreground: #f8fafc; /* Açık metin */
 
-  --primary: #c084fc; /* örnek: grape-400 */
-  --secondary: #fb7185; /* örnek: rose-400 */
-  --accent: #34d399; /* örnek: emerald-400 */
-  --muted: #1f2937; /* örnek: gray-800 */
+  --primary: #1d4ed8; /* Koyu mavi: derin deniz */
+  --secondary: #2563eb; /* Daha canlı koyu mavi */
+  --accent: #0ea5e9; /* Koyu turkuaz */
+  --muted: #1e293b; /* Lacivert-gri */
 
-  --text: #f9fafb; /* örnek: gray-100 */
-  --border: #374151; /* örnek: gray-700 */
-}
-
-/* Uygulama genel stil örneği */
-body {
-  background-color: var(--background);
-  color: var(--text);
-  font-family: var(--font-geist-sans), sans-serif;
+  --text: #f8fafc; /* Açık metin */
+  --border: #334155; /* Koyu gri mavi sınırlar */
 }
