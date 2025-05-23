@@ -1,25 +1,47 @@
-:root {
-  --background: #f0f9ff; /* Açık gökyüzü */
-  --foreground: #0f172a; /* Lacivert metin */
+@import "tailwindcss";
 
-  --primary: #3b82f6; /* Mavi: gökyüzü */
-  --secondary: #60a5fa; /* Açık mavi: su yansıması */
-  --accent: #22d3ee; /* Turkuaz: deniz vurgusu */
-  --muted: #e0f2fe; /* Buz mavisi */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-  --text: #0f172a; /* Lacivert metin */
-  --border: #bae6fd; /* Açık mavi çizgiler */
+@theme {
+  --color-sky-400: oklch(0.85 0.09 230);
+  --color-sky-500: oklch(0.75 0.12 230);
+  --color-mint-400: oklch(0.8 0.11 170);
+  --color-mint-500: oklch(0.72 0.13 170);
+  --color-sand-400: oklch(0.85 0.07 100);
+  --color-sand-500: oklch(0.75 0.08 100);
+  --color-navy-700: oklch(0.35 0.05 260);
+  --color-neutral-100: oklch(0.98 0.01 250);
 }
 
 [data-theme="dark"] {
-  --background: #0f172a; /* Gece denizi */
-  --foreground: #f8fafc; /* Açık metin */
+  --color-sky-400: oklch(0.55 0.07 230);
+  --color-sky-500: oklch(0.45 0.1 230);
+  --color-mint-400: oklch(0.3 0.12 170);
+  --color-mint-500: oklch(0.2 0.14 170);
+  --color-sand-400: oklch(0.35 0.05 100);
+  --color-sand-500: oklch(0.28 0.06 100);
+  --color-navy-700: oklch(0.15 0.04 260);
+  --color-neutral-100: oklch(0.15 0.01 250);
+}
 
-  --primary: #1d4ed8; /* Koyu mavi: derin deniz */
-  --secondary: #2563eb; /* Daha canlı koyu mavi */
-  --accent: #0ea5e9; /* Koyu turkuaz */
-  --muted: #1e293b; /* Lacivert-gri */
-
-  --text: #f8fafc; /* Açık metin */
-  --border: #334155; /* Koyu gri mavi sınırlar */
+.bg-sky-400 {
+  background-color: var(--color-sky-400);
+}
+.bg-sky-500 {
+  background-color: var(--color-sky-400);
+}
+.bg-mint-400 {
+  background-color: var(--color-mint-400);
+}
+.bg-mint-500 {
+  background-color: var(--color-mint-400);
+}
+.bg-sand {
+  background-color: var(--color-sand-400);
+}
+.bg-navy {
+  background-color: var(--color-navy-700);
+}
+.text-neutral {
+  color: var(--color-neutral-100);
 }

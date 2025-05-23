@@ -1,34 +1,17 @@
-import { ThemeChanger } from "@/components/ThemeToggle";
-
 export default function Home() {
   return (
     <div>
-      <div
-        style={{
-          backgroundColor: "var(--background)",
-          color: "var(--text)",
-          border: "1px solid var(--border)",
-          padding: "1rem",
-          borderRadius: "8px",
-        }}
-      >
-        <h1 style={{ color: "var(--primary)" }}>Bot Kiralama</h1>
-        <p style={{ color: "var(--secondary)" }}>
-          Hayalinizdeki deniz keyfi için en iyi botları keşfedin.
-        </p>
-        <button
-          style={{
-            backgroundColor: "var(--accent)",
-            color: "var(--foreground)",
-            padding: "0.5rem 1rem",
-            border: "none",
-            borderRadius: "6px",
-            marginTop: "1rem",
-          }}
-        >
-          Şimdi Kirala
-        </button>
-      </div>
+      <div className="bg-sky p-4 rounded text-white">Sky 400</div>
+      <div className="bg-sky-2 p-4 rounded text-white">Sky 500</div>
+
+      <div className="bg-mint p-4 rounded text-white">Mint 400</div>
+      <div className="bg-mint-2 p-4 rounded text-white">Mint 500</div>
+
+      <div className="bg-sand p-4 rounded text-black">Sand 400</div>
+      <div className="bg-sand-2 p-4 rounded text-black">Sand 500</div>
+
+      <div className="bg-navy p-4 rounded text-white">Navy 700</div>
+      <div className="bg-neutral p-4 rounded text-black">Neutral 100</div>
     </div>
   );
 }
