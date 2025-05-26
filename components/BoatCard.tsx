@@ -1,34 +1,15 @@
-"use client";
 import { BoatCardModel } from "@/models/BoatCard";
-import { Carousel } from "react-responsive-carousel";
-import Image from "next/image";
+import Link from "next/link";
+import ImageCarousel from "./ImageCarousel";
 
 export default function BoatCard({ boat }: { boat: BoatCardModel }) {
   return (
-    <div className="bg-white rounded-2xl shadow-md overflow-hidden w-full md:w-[400px]">
-      <Carousel
-        showThumbs={false}
-        showStatus={false}
-        infiniteLoop
-        useKeyboardArrows
-        autoPlay={false}
-        className="w-full h-64"
-      >
-        {boat.imageUrls.map((item, idx) => (
-          <div key={idx} className="relative w-full h-64">
-            <Image
-              src={`http://localhost:7229/${item}`}
-              alt={`Image ${idx}`}
-              fill
-              className="object-cover rounded-t-2xl"
-            />
-          </div>
-        ))}
-      </Carousel>
+    <div className="bg-sky-500 rounded-2xl shadow-md overflow-hidden w-full md:w-[400px]">
+      <ImageCarousel imageUrls={boat.imageUrls} />
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-1">{boat.name}</h2>
-        <p className="text-sm text-gray-500 mb-2">{boat.description}</p>
-        <div className="text-sm text-gray-700 space-y-1">
+        <p className="text-sm mb-2">{boat.description}</p>
+        <div className="text-sm space-y-1">
           <p>
             <strong>Fiyat/saat:</strong> {boat.pricePerHour}₺
           </p>
@@ -51,6 +32,11 @@ export default function BoatCard({ boat }: { boat: BoatCardModel }) {
           </p>
         </div>
       </div>
+      <Link href={`/boats/${boat.id}`}>
+        <button className="bg-navy text-neutral w-full h-10 cursor-pointer">
+          Kirala
+        </button>
+      </Link>
     </div>
   );
 }

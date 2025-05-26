@@ -21,7 +21,7 @@
   --color-sand-400: oklch(0.35 0.05 100);
   --color-sand-500: oklch(0.28 0.06 100);
   --color-navy-700: oklch(0.15 0.04 260);
-  --color-neutral-100: oklch(0.15 0.01 250);
+  --color-neutral-100: oklch(0.98 0.01 250);
 }
 
 .bg-sky-400 {
