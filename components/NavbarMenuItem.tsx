@@ -1,0 +1,33 @@
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import clsx from "clsx"; // tailwind class'larını dinamik yönetmek için
+
+interface NavbarMenuItemProps {
+  href: string;
+  title: string;
+}
+
+const NavbarMenuItem = ({ title, href }: NavbarMenuItemProps) => {
+  const pathname = usePathname();
+
+  const isActive = pathname === href;
+
+  return (
+    <Link
+      href={href}
+      className={clsx(
+        "transition",
+        isActive
+          ? "text-sky-500 font-semibold"
+          : "text-gray-500 hover:text-sky-400"
+      )}
+    >
+      {title}
+    </Link>
+  );
+};
+
+export default NavbarMenuItem;

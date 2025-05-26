@@ -1,5 +1,5 @@
+@import "react-responsive-carousel/lib/styles/carousel.min.css";
 @import "tailwindcss";
-
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
@@ -42,6 +42,24 @@
 .bg-navy {
   background-color: var(--color-navy-700);
 }
+.text-sky-400 {
+  color: var(--color-text-sky-400);
+}
+.text-sky-500 {
+  color: var(--color-text-sky-500);
+}
+.text-mint-400 {
+  color: var(--color-text-mint-400);
+}
+.text-mint-500 {
+  color: var(--color-text-mint-500);
+}
+.text-sand {
+  color: var(--color-text-sand-400);
+}
+.text-navy {
+  color: var(--color-text-navy-700);
+}
 .text-neutral {
-  color: var(--color-neutral-100);
+  color: var(--color-text-neutral-100);
 }
