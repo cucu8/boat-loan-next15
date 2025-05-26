@@ -27,15 +27,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} h-screen flex flex-col overflow-hidden`}
       >
         <ThemeProvider>
-          {/* Navbar: Sabit */}
           <div className="shrink-0">
             <Navbar />
           </div>
 
-          {/* Main: Scrollable */}
           <main className="flex-1 overflow-auto">{children}</main>
 
-          {/* Footer: Sabit */}
           <div className="shrink-0">
             <Footer />
           </div>

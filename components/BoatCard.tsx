@@ -1,9 +1,9 @@
 "use client";
 import { BoatCardModel } from "@/models/BoatCard";
 import { Carousel } from "react-responsive-carousel";
+import Image from "next/image";
 
 export default function BoatCard({ boat }: { boat: BoatCardModel }) {
-  console.log(boat.imageUrls[0]);
   return (
     <div className="bg-white rounded-2xl shadow-md overflow-hidden w-full md:w-[400px]">
       <Carousel
@@ -14,12 +14,13 @@ export default function BoatCard({ boat }: { boat: BoatCardModel }) {
         autoPlay={false}
         className="w-full h-64"
       >
-        {boat.imageUrls.map((url, idx) => (
-          <div key={idx} className="h-64 w-full">
-            <img
-              src={`https://localhost:7229/${boat.imageUrls[idx]}`}
+        {boat.imageUrls.map((item, idx) => (
+          <div key={idx} className="relative w-full h-64">
+            <Image
+              src={`http://localhost:7229/${item}`}
               alt={`Image ${idx}`}
-              className="object-cover h-64 w-full"
+              fill
+              className="object-cover rounded-t-2xl"
             />
           </div>
         ))}
@@ -41,7 +42,7 @@ export default function BoatCard({ boat }: { boat: BoatCardModel }) {
             <strong>Sahibi:</strong> {boat.ownerName}
           </p>
           <p>
-            <strong>Durum:</strong>{" "}
+            <strong>Durum:</strong>
             <span
               className={boat.isAvailable ? "text-green-600" : "text-red-600"}
             >

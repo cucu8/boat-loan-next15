@@ -19,10 +19,8 @@ const NavbarMenuItem = ({ title, href }: NavbarMenuItemProps) => {
     <Link
       href={href}
       className={clsx(
-        "transition",
-        isActive
-          ? "text-sky-500 font-semibold"
-          : "text-gray-500 hover:text-sky-400"
+        "transition font-semibold whitespace-nowrap",
+        isActive ? "text-sky-500 " : "text-gray-500 hover:text-sky-400"
       )}
     >
       {title}

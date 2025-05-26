@@ -1,11 +1,10 @@
 import { httpsAgent } from "@/libs";
-import axios from "axios";
-import https from "https";
 import { NextResponse } from "next/server";
+import axios from "axios";
 
 export async function GET() {
   try {
-    const { data } = await axios.get("https://localhost:7229/api/boats", {
+    const { data } = await axios.get("http://localhost:7229/api/boats", {
       httpsAgent,
       headers: {
         "Content-Type": "application/json",
