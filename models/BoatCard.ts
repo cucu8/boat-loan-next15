@@ -8,4 +8,5 @@ export interface BoatCardModel {
   ownerName: string;
   districtName: string;
   imageUrls: string[];
+  ownerPhoneNumber?: string;
 }

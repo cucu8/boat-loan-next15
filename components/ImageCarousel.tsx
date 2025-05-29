@@ -21,7 +21,7 @@ const ImageCarousel = ({
       infiniteLoop
       useKeyboardArrows
       autoPlay={false}
-      className="w-full h-64"
+      className={`${width} ${height}`}
     >
       {imageUrls.map((item, idx) => (
         <div key={idx} className={`relative ${width} ${height}`}>
