@@ -5,6 +5,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
+import { SessionProvider } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,28 +19,31 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession(authOptions);
   return (
     <html lang="en" suppressHydrationWarning>
-      <Toaster />
       <body
         className={`${geistSans.variable} ${geistMono.variable} h-screen flex flex-col overflow-hidden`}
       >
-        <ThemeProvider>
-          <div className="shrink-0">
-            <Navbar />
-          </div>
+        <SessionProvider session={session}>
+          <Toaster />
+          <ThemeProvider>
+            <div className="shrink-0">
+              <Navbar />
+            </div>
 
-          <main className="flex-1 overflow-auto">{children}</main>
+            <main className="flex-1 overflow-auto">{children}</main>
 
-          <div className="shrink-0">
-            <Footer />
-          </div>
-        </ThemeProvider>
+            <div className="shrink-0">
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );
