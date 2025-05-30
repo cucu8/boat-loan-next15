@@ -2,14 +2,13 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import Container from "@/components/Container";
 import toast from "react-hot-toast";
-import { signIn, useSession } from "next-auth/react";
 
 const Login = () => {
-  const { data: session, status } = useSession();
-
   const router = useRouter();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
