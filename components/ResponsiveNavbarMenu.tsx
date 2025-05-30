@@ -1,9 +1,13 @@
+"use client";
 import React from "react";
 import { ThemeChanger } from "./ThemeToggle";
 import { navbarMenuItems } from "@/constants";
 import NavbarMenuItem from "./NavbarMenuItem";
+import { signOut, useSession } from "next-auth/react"; // Import signOut and Session type
+import LogoutButton from "./LogoutButton";
 
-const ResponsiveNavbarMenu = () => {
+const ResponsiveNavbarMenu: React.FC = () => {
+  const { data: session, status } = useSession(); // Get session data and status
   return (
     <div className="md:hidden flex flex-col px-4 pb-4 space-y-2">
       {navbarMenuItems.map(
@@ -12,8 +16,25 @@ const ResponsiveNavbarMenu = () => {
         )
       )}
 
-      <NavbarMenuItem href={"/login"} title={"Login"} />
-      <NavbarMenuItem href={"/register"} title={"Register"} />
+      {status === "loading" ? (
+        // Optionally show a loading state
+        <NavbarMenuItem href="#" title="Loading..." />
+      ) : session ? (
+        // User is logged in
+        <>
+          <NavbarMenuItem
+            href="/profile"
+            title={session.user?.name || "Profile"}
+          />
+          <LogoutButton />
+        </>
+      ) : (
+        // User is not logged in
+        <>
+          <NavbarMenuItem href={"/login"} title={"Login"} />
+          <NavbarMenuItem href={"/register"} title={"Register"} />
+        </>
+      )}
       <ThemeChanger />
     </div>
   );

@@ -8,7 +8,6 @@ import { signIn, useSession } from "next-auth/react";
 
 const Login = () => {
   const { data: session, status } = useSession();
-  console.log("SESSION on client:", session);
 
   const router = useRouter();
   const [form, setForm] = useState({
