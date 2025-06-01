@@ -56,7 +56,7 @@ export default async function BoatDetailPage({ params }: IdParams) {
             </div>
             {boat.ownerPhoneNumber && (
               <div>
-                <span className="font-semibold">Telefon:</span>{" "}
+                <span className="font-semibold">Telefon:</span>
                 {boat.ownerPhoneNumber}
               </div>
             )}

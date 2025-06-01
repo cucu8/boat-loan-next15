@@ -30,6 +30,10 @@ export default function BoatCard({ boat }: { boat: BoatCardModel }) {
               {boat.isAvailable ? "Müsait" : "Dolu"}
             </span>
           </p>
+          <p>
+            <strong>Telefon Numarası</strong>
+            <span>{boat.ownerPhoneNumber}</span>
+          </p>
         </div>
       </div>
       <Link href={`/boats/${boat.id}`}>
