@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Container from "@/components/Container";
 import axios from "axios";
 import toast from "react-hot-toast";
+import TextInput from "@/elements/TextInput";
 
 const Register = () => {
   const router = useRouter();
@@ -48,79 +49,49 @@ const Register = () => {
         <h2 className="text-2xl font-bold text-center">Kayıt Ol</h2>
 
         {/* Email */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="email" className="text-sm">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-            className="rounded-md px-3 py-2 bg-neutral-100 text-black focus:outline-none focus:ring-2 focus:ring-sky-500"
-          />
-        </div>
+        <TextInput
+          handleChange={handleChange}
+          value={form.email}
+          type="email"
+          name="email"
+          title="Email"
+        />
 
         {/* Telefon */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="phoneNumber" className="text-sm">
-            Telefon
-          </label>
-          <input
-            type="tel"
-            name="phoneNumber"
-            value={form.phoneNumber}
-            onChange={handleChange}
-            required
-            className="rounded-md px-3 py-2 bg-neutral-100 text-black focus:outline-none focus:ring-2 focus:ring-sky-500"
-          />
-        </div>
+        <TextInput
+          handleChange={handleChange}
+          value={form.phoneNumber}
+          type="tel"
+          name="phoneNumber"
+          title="Telefon"
+        />
 
         {/* Kullanıcı Adı */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="name" className="text-sm">
-            Kullanıcı Adı
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            required
-            className="rounded-md px-3 py-2 bg-neutral-100 text-black focus:outline-none focus:ring-2 focus:ring-sky-500"
-          />
-        </div>
+        <TextInput
+          handleChange={handleChange}
+          value={form.name}
+          type="text"
+          name="name"
+          title="Kullanıcı Adı"
+        />
 
         {/* Şifre */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="password" className="text-sm">
-            Şifre
-          </label>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            required
-            className="rounded-md px-3 py-2 bg-neutral-100 text-black focus:outline-none focus:ring-2 focus:ring-mint-500"
-          />
-        </div>
+        <TextInput
+          handleChange={handleChange}
+          value={form.password}
+          type="password"
+          name="password"
+          title="Şifre"
+        />
 
         {/* Şifre Tekrar */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="confirmPassword" className="text-sm">
-            Şifre Tekrar
-          </label>
-          <input
-            type="password"
-            name="confirmPassword"
-            value={form.confirmPassword}
-            onChange={handleChange}
-            required
-            className="rounded-md px-3 py-2 bg-neutral-100 text-black focus:outline-none focus:ring-2 focus:ring-mint-500"
-          />
-        </div>
+        <TextInput
+          handleChange={handleChange}
+          value={form.confirmPassword}
+          type="password"
+          name="confirmPassword"
+          title="Şifre Tekrar"
+        />
 
         <button
           type="submit"
