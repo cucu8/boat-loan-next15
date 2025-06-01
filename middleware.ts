@@ -6,18 +6,16 @@ export default withAuth(
   function middleware(req) {
     const { pathname } = req.nextUrl;
     const { token } = req.nextauth;
-    console.log("Middleware çalışıyor, token:", token, "pathname:", pathname);
 
     if (token && (pathname === "/login" || pathname === "/register")) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
-    // Senaryo 2: Kullanıcı oturum açmamışsa ve /add-boat sayfasına gitmeye çalışıyorsa
     if (!token && pathname === "/add-boat") {
       console.log(
         "Oturum kapalı, /add-boat'a erişim engellendi. Ana sayfaya yönlendiriliyor."
       );
-      // İstek ana sayfaya yönlendiriliyor, login sayfasına değil.
+
       return NextResponse.redirect(new URL("/login", req.url));
     }
     // Diğer tüm durumlar için normal akışı devam ettir
@@ -52,5 +50,5 @@ export default withAuth(
 
 // Middleware'in hangi yollarda çalışacağını belirtin
 export const config = {
-  matcher: ["/login", "/register", "/add-boat"], // Sadece login ve register sayfalarında çalışsın
+  matcher: ["/login", "/register", "/add-boat"],
 };
