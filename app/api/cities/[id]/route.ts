@@ -1,12 +1,15 @@
 import { httpsAgent } from "@/libs";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import { IdParams } from "@/models";
 
-export async function GET(req: NextRequest, { params }: IdParams) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: number } }
+) {
   const { id } = await params;
+
   try {
-    const { data } = await axios.get(`http://localhost:7229/api/boats/${id}`, {
+    const { data } = await axios.get(`http://localhost:7229/api/Cities/${id}`, {
       httpsAgent,
       headers: {
         "Content-Type": "application/json",

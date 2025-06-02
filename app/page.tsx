@@ -1,5 +1,5 @@
 import BoatCard from "@/components/BoatCard";
-import { BoatCardModel } from "../models/BoatCard";
+import { BoatCardModel } from "../models";
 import Container from "@/components/Container";
 
 export default async function Home() {

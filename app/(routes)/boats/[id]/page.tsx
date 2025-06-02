@@ -1,7 +1,7 @@
 import Container from "@/components/Container";
 import ImageCarousel from "@/components/ImageCarousel";
-import { BoatCardModel } from "@/models/BoatCard";
-import { IdParams } from "@/models/General";
+import { BoatCardModel } from "@/models";
+import { IdParams } from "@/models";
 
 export default async function BoatDetailPage({ params }: IdParams) {
   const { id } = await params;

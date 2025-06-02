@@ -1,7 +1,7 @@
 import { httpsAgent } from "@/libs";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import { LoginSuccessResponse } from "@/models/General";
+import { LoginSuccessResponse } from "@/models";
 
 export async function POST(req: NextRequest) {
   try {

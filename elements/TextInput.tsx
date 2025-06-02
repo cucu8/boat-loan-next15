@@ -3,9 +3,10 @@ import React from "react";
 interface TextInputProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
-  value: string;
+  value: string | number;
   type?: string;
   name: string;
+  minValue?: number;
 }
 
 const TextInput = ({
@@ -14,6 +15,7 @@ const TextInput = ({
   value,
   type = "text",
   name,
+  minValue = 0,
 }: TextInputProps) => {
   return (
     <div className="flex flex-col gap-1">
@@ -21,6 +23,7 @@ const TextInput = ({
         {title}
       </label>
       <input
+        min={minValue}
         type={type}
         name={name}
         value={value}

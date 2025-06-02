@@ -1,14 +1,15 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import React from "react";
+import AddBoatForm from "@/components/AddBoatForm";
 
 const AddBoat = async () => {
   const session = await getServerSession(authOptions);
-  console.log("ID", session?.user.id);
-  console.log("NAME:", session?.user.name);
-  console.log("TOKEN:", session?.accessToken);
+  const res = await fetch("http://localhost:3000/api/countries");
+  const coutries = await res.json();
 
-  return <div>AddBoat</div>;
+  return (
+    <AddBoatForm ownerId={Number(session?.user?.id)} countries={coutries} />
+  );
 };
 
 export default AddBoat;

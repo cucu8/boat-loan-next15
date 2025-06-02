@@ -1,4 +1,4 @@
-import { BoatCardModel } from "@/models/BoatCard";
+import { BoatCardModel } from "@/models";
 import Link from "next/link";
 import ImageCarousel from "./ImageCarousel";
 
