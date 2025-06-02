@@ -26,10 +26,12 @@ const ImageCarousel = ({
       {imageUrls.map((item, idx) => (
         <div key={idx} className={`relative ${width} ${height}`}>
           <Image
-            src={`http://localhost:7229/${item}`}
+            src={`http://localhost:7229${item}`}
             alt={`Image ${idx}`}
             fill
             className="object-cover rounded-t-2xl"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={false}
           />
         </div>
       ))}

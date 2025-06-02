@@ -8,7 +8,11 @@ const AddBoat = async () => {
   const coutries = await res.json();
 
   return (
-    <AddBoatForm ownerId={Number(session?.user?.id)} countries={coutries} />
+    <AddBoatForm
+      ownerId={Number(session?.user?.id)}
+      countries={coutries}
+      token={session?.accessToken!}
+    />
   );
 };
 

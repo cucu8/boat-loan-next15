@@ -23,7 +23,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // getServerSession bir Server Component'te çağrılabilir, bu yüzden burada kalabilir.
   const session = await getServerSession(authOptions);
 
   return (

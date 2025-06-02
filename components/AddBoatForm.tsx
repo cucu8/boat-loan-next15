@@ -14,13 +14,19 @@ interface AddBoatFormProps {
     id: number;
     name: string;
   }[];
+  token: string;
 }
 
-const AddBoatForm = ({ ownerId, countries }: AddBoatFormProps) => {
+const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
   const router = useRouter();
+
   const [selectedCountryId, setSelectedCountryId] = useState<number>(1);
   const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
-  const [selectedCityId, setSelectedCityId] = useState<number>(1);
+  const [selectedCityId, setSelectedCityId] = useState<number>(0);
+  const [districts, setDistricts] = useState<{ id: number; name: string }[]>(
+    []
+  );
+  const [selectedDistrictId, setSelectedDistrictId] = useState<number>(0);
 
   const [form, setForm] = useState<AddBoatFormData>({
     name: "",
@@ -29,7 +35,7 @@ const AddBoatForm = ({ ownerId, countries }: AddBoatFormProps) => {
     capacity: null,
     isAvailable: true,
     districtId: null,
-    imagesUrls: [],
+    images: [],
     ownerId: ownerId,
   });
 
@@ -41,11 +47,15 @@ const AddBoatForm = ({ ownerId, countries }: AddBoatFormProps) => {
     setSelectedCityId(e.target.value);
   };
 
+  const handleSelectDistrictId = (e: any) => {
+    setSelectedDistrictId(e.target.value);
+    setForm({ ...form, districtId: e.target.value });
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    const fileNames = files.map((file) => file.name);
 
-    setForm({ ...form, imagesUrls: fileNames });
+    setForm({ ...form, images: files });
   };
 
   const handleChange = (
@@ -58,18 +68,44 @@ const AddBoatForm = ({ ownerId, countries }: AddBoatFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
-    // try {
-    //   const res = await axios.post("http://localhost:3000/api/boats", form);
 
-    //   if (res.status === 200) {
-    //     toast.success("Tekne başarıyla eklendi!");
-    //     router.push("/boats");
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    //   toast.error("Bir hata oluştu.");
-    // }
+    const formData = new FormData();
+    formData.append("Name", form.name);
+    formData.append("Description", form.description);
+    formData.append("PricePerHour", form.pricePerHour?.toString() || "0");
+    formData.append("Capacity", form.capacity?.toString() || "0");
+    formData.append("IsAvailable", form.isAvailable.toString());
+    formData.append("DistrictId", form.districtId?.toString() || "0");
+    formData.append("OwnerId", form.ownerId.toString());
+
+    const now = new Date().toISOString();
+    formData.append("AvailableFrom", now);
+    formData.append("AvailableTo", now);
+
+    form.images.forEach((file) => {
+      formData.append("Images", file);
+    });
+
+    try {
+      const res = await axios.post(
+        "http://localhost:7229/api/boats",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.status === 201) {
+        toast.success("Tekne başarıyla eklendi!");
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Bir hata oluştu.");
+    }
   };
 
   const getCitiesByCountryId = async (id: number) => {
@@ -83,9 +119,23 @@ const AddBoatForm = ({ ownerId, countries }: AddBoatFormProps) => {
     }
   };
 
+  const getDistrictsByCityId = async (id: number) => {
+    try {
+      const res = await axios.get(`http://localhost:3000/api/districts/${id}`);
+
+      if (res.status === 200) setDistricts(res.data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Bir hata oluştu.");
+    }
+  };
+
   useEffect(() => {
     getCitiesByCountryId(selectedCountryId);
-  }, [selectedCountryId]);
+    if (selectedCityId !== 0) {
+      getDistrictsByCityId(selectedCityId);
+    }
+  }, [selectedCountryId, selectedCityId]);
 
   return (
     <Container>
@@ -134,6 +184,7 @@ const AddBoatForm = ({ ownerId, countries }: AddBoatFormProps) => {
           type="number"
           name="capacity"
           title="Kapasite"
+          minValue={0}
         />
 
         <SelectBox
@@ -150,6 +201,13 @@ const AddBoatForm = ({ ownerId, countries }: AddBoatFormProps) => {
           title="Şehir Seçiniz"
         />
 
+        <SelectBox
+          handleSelectId={handleSelectDistrictId}
+          selectedCountryId={selectedDistrictId}
+          selectData={districts}
+          title="İlçe Seçiniz"
+        />
+
         <div className="flex items-center flex-col gap-2">
           <label
             htmlFor="file-upload"
@@ -157,13 +215,13 @@ const AddBoatForm = ({ ownerId, countries }: AddBoatFormProps) => {
           >
             Resim seçmek için tıklayınız
           </label>
-          {form.imagesUrls.length > 0 &&
-            form.imagesUrls.map((url, index) => (
+          {form.images.length > 0 &&
+            form.images.map((image, index) => (
               <span
                 key={index}
                 className={`bg-sky-500 text-white px-2 py-1 rounded-lg`}
               >
-                {url}
+                {image.name}
               </span>
             ))}
         </div>

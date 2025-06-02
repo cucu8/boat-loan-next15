@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ThemeChanger } from "./ThemeToggle";
 import ResponsiveNavbarMenu from "./ResponsiveNavbarMenu";
 import { navbarMenuItems } from "@/constants";

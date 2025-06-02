@@ -10,9 +10,12 @@ export async function GET() {
         "Content-Type": "application/json",
       },
     });
-    console.log(data);
+
     return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message },
+      { status: error.status }
+    );
   }
 }

@@ -4,7 +4,7 @@ import ImageCarousel from "./ImageCarousel";
 
 export default function BoatCard({ boat }: { boat: BoatCardModel }) {
   return (
-    <div className="bg-sky-500 rounded-2xl shadow-md overflow-hidden w-full md:w-[400px]">
+    <div className="bg-sky-500  rounded-2xl shadow-md overflow-hidden w-full md:w-[400px]">
       <ImageCarousel imageUrls={boat.imageUrls} />
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-1">{boat.name}</h2>

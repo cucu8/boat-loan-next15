@@ -24,7 +24,7 @@ export interface AddBoatFormData {
   capacity: number | null;
   isAvailable: boolean;
   districtId: number | null;
-  imagesUrls: string[];
+  images: File[];
   ownerId: number;
 }
 
