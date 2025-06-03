@@ -13,9 +13,7 @@ export async function POST(req: NextRequest) {
     if (!session || !session.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    console.log("TOKEN", session.accessToken);
 
-    console.log("body", body);
     const { data } = await axios.post(`http://localhost:7229/api/boats`, body, {
       httpsAgent,
       headers: {

@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react";
 import Container from "@/components/Container";
 import toast from "react-hot-toast";
 import TextInput from "@/elements/TextInput"; // TextInput bileşenini ekliyoruz
+import { encrypt } from "@/libs";
 
 const Login = () => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const Login = () => {
 
     const res = await signIn("credentials", {
       email: form.email,
-      password: form.password,
+      password: encrypt(form.password),
       redirect: false,
     });
 

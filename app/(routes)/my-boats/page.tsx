@@ -1,10 +1,10 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import BoatCard from "@/components/BoatCard";
-import { BoatCardModel } from "@/models";
-import axios from "axios";
-import { Container } from "lucide-react";
-import { getServerSession } from "next-auth";
 import React from "react";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { BoatCardModel } from "@/models";
+import { getServerSession } from "next-auth";
+import Container from "@/components/Container";
+import BoatCard from "@/components/BoatCard";
+import Link from "next/link";
 
 const MyBoats = async () => {
   const session = await getServerSession(authOptions);
@@ -16,16 +16,23 @@ const MyBoats = async () => {
 
   const boats = await res.json();
 
-  if (!boats || boats.length === 0) {
-    return <Container className="text-center">No boats found</Container>;
+  if (boats.length === 0) {
+    return (
+      <Container extraClasses="text-center text-bold text-2xl mt-10">
+        Henüz eklenmiş bir tekneniz yok. Eklemek için
+        <Link href="/add-boat" className="unterline text-blue-500">
+          tıklayınız.
+        </Link>
+      </Container>
+    );
   }
 
   return (
-    <div className="container mx-auto">
+    <Container extraClasses="container mx-auto">
       {boats.map((boat: BoatCardModel) => (
         <BoatCard key={boat.id} boat={boat} />
       ))}
-    </div>
+    </Container>
   );
 };
 
