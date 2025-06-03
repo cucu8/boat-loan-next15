@@ -1,8 +1,8 @@
 import { BoatCardModel } from "@/models";
-import Link from "next/link";
 import ImageCarousel from "./ImageCarousel";
+import EditButtonGroup from "./EditButtonGroup";
 
-export default function BoatCard({ boat }: { boat: BoatCardModel }) {
+export default function BoatCardEdit({ boat }: { boat: BoatCardModel }) {
   return (
     <div className="bg-sky-500  rounded-2xl shadow-md overflow-hidden w-full md:w-[400px]">
       <ImageCarousel imageUrls={boat.imageUrls} />
@@ -36,11 +36,7 @@ export default function BoatCard({ boat }: { boat: BoatCardModel }) {
           </p>
         </div>
       </div>
-      <Link href={`/boats/${boat.id}`}>
-        <button className="bg-navy text-neutral w-full h-10 cursor-pointer">
-          Kirala
-        </button>
-      </Link>
+      <EditButtonGroup id={boat.id} />
     </div>
   );
 }

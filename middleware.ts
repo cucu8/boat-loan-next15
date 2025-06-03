@@ -11,7 +11,7 @@ export default withAuth(
       return NextResponse.redirect(new URL("/", req.url));
     }
 
-    if ((!token && pathname === "/add-boat") || pathname === "/my-boats") {
+    if (!token && (pathname === "/add-boat" || pathname === "/my-boats")) {
       console.log(
         "Oturum kapalı, /add-boat'a erişim engellendi. Ana sayfaya yönlendiriliyor."
       );

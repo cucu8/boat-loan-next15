@@ -10,7 +10,9 @@ export async function POST(req: NextRequest) {
     body.password = decryptedPassword;
     body.confirmPassword = decryptedConfirmPassword;
 
-    const { data } = await axios.post(`http://localhost:7229/api/users`, body, {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    const { data } = await axios.post(`${apiUrl}users`, body, {
       httpsAgent,
       headers: {
         "Content-Type": "application/json",

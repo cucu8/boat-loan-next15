@@ -3,8 +3,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { BoatCardModel } from "@/models";
 import { getServerSession } from "next-auth";
 import Container from "@/components/Container";
-import BoatCard from "@/components/BoatCard";
 import Link from "next/link";
+import BoatCardEdit from "@/components/BoatCardEdit";
 
 const MyBoats = async () => {
   const session = await getServerSession(authOptions);
@@ -30,7 +30,7 @@ const MyBoats = async () => {
   return (
     <Container extraClasses="container mx-auto">
       {boats.map((boat: BoatCardModel) => (
-        <BoatCard key={boat.id} boat={boat} />
+        <BoatCardEdit key={boat.id} boat={boat} />
       ))}
     </Container>
   );
