@@ -5,6 +5,7 @@ import Container from "@/components/Container";
 import axios from "axios";
 import toast from "react-hot-toast";
 import TextInput from "@/elements/TextInput";
+import { decrypt, encrypt } from "@/libs";
 
 const Register = () => {
   const router = useRouter();
@@ -24,6 +25,8 @@ const Register = () => {
     e.preventDefault();
     const res = await axios.post("http://localhost:3000/api/users/register", {
       ...form,
+      password: encrypt(form.password),
+      confirmPassword: decrypt(form.confirmPassword),
       userType: 0,
     });
 

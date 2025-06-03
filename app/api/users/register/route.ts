@@ -1,10 +1,14 @@
-import { httpsAgent } from "@/libs";
+import { decrypt, httpsAgent } from "@/libs";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    const decryptedPassword = decrypt(body.password);
+    const decryptedConfirmPassword = decrypt(body.confirmPassword);
+    body.password = decryptedPassword;
+    body.confirmPassword = decryptedConfirmPassword;
 
     const { data } = await axios.post(`http://localhost:7229/api/users`, body, {
       httpsAgent,

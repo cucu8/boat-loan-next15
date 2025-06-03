@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Container from "@/components/Container";
 import toast from "react-hot-toast";
-import TextInput from "@/elements/TextInput"; // TextInput bileşenini ekliyoruz
+import TextInput from "@/elements/TextInput";
 import { encrypt } from "@/libs";
 
 const Login = () => {
