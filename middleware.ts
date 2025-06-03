@@ -11,7 +11,7 @@ export default withAuth(
       return NextResponse.redirect(new URL("/", req.url));
     }
 
-    if (!token && pathname === "/add-boat") {
+    if ((!token && pathname === "/add-boat") || pathname === "/my-boats") {
       console.log(
         "Oturum kapalı, /add-boat'a erişim engellendi. Ana sayfaya yönlendiriliyor."
       );
@@ -50,5 +50,5 @@ export default withAuth(
 
 // Middleware'in hangi yollarda çalışacağını belirtin
 export const config = {
-  matcher: ["/login", "/register", "/add-boat"],
+  matcher: ["/login", "/register", "/add-boat", "/my-boats"],
 };

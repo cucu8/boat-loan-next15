@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { ThemeChanger } from "./ThemeToggle";
 import ResponsiveNavbarMenu from "./ResponsiveNavbarMenu";
-import { navbarMenuItems } from "@/constants";
+import { navbarMenuItems, privateRoutes } from "@/constants";
 import NavbarMenuItem from "./NavbarMenuItem";
 import { Menu } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -21,11 +21,11 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 items-center w-full">
-            {navbarMenuItems.map(
-              (item: { title: string; href: string }, i: number) => (
+            {navbarMenuItems
+              .filter((item) => session || !privateRoutes.includes(item.href))
+              .map((item: { title: string; href: string }, i: number) => (
                 <NavbarMenuItem key={i} href={item.href} title={item.title} />
-              )
-            )}
+              ))}
             <div className="flex flex-row items-center space-x-4 justify-end w-full rounded-lg ">
               {status === "loading" ? (
                 <div>Loading...</div>
