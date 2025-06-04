@@ -6,15 +6,21 @@ import { IdParams } from "@/models";
 export async function GET(req: NextRequest, { params }: IdParams) {
   const { id } = await params;
   try {
-    const { data } = await axios.get(`http://localhost:7229/api/boats/${id}`, {
-      httpsAgent,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}boats/${id}`,
+      {
+        httpsAgent,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message },
+      { status: error.status || 500 }
+    );
   }
 }

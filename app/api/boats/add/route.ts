@@ -14,13 +14,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { data } = await axios.post(`http://localhost:7229/api/boats`, body, {
-      httpsAgent,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${session.accessToken}`,
-      },
-    });
+    const { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}boats`,
+      body,
+      {
+        httpsAgent,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+      }
+    );
 
     return NextResponse.json({ data }, { status: 200 });
   } catch (error: any) {

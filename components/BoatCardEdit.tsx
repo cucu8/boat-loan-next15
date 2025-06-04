@@ -36,7 +36,7 @@ export default function BoatCardEdit({ boat }: { boat: BoatCardModel }) {
           </p>
         </div>
       </div>
-      <EditButtonGroup id={boat.id} />
+      <EditButtonGroup id={boat.id} name={boat.name} />
     </div>
   );
 }

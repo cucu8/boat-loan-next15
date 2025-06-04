@@ -1,26 +1,18 @@
 "use client";
 import React from "react";
-import { Pencil, Trash2 } from "lucide-react";
+import { Delete, Pencil, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
+import Modal from "@/elements/Modal";
+import DeleteBoatConfirmation from "./modalChildren/DeleteBoatConfirmation";
 interface EditButtonGroupProps {
   id: number;
+  name: string;
 }
-const EditButtonGroup = ({ id }: EditButtonGroupProps) => {
+const EditButtonGroup = ({ id, name }: EditButtonGroupProps) => {
+  const [isOpenDeleteModal, setIsDeleteModal] = React.useState(false);
   console.log(id);
-  const handleDelete = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXTAUTH_SECRET}boats/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (response.ok) {
-        toast.success("Silme işlemi başarılı");
-      }
-    } catch (error) {
-      console.error("Silme işlemi sırasında hata oluştu:", error);
-    }
+  const handleDelete = () => {
+    setIsDeleteModal(true);
   };
 
   return (
@@ -36,6 +28,18 @@ const EditButtonGroup = ({ id }: EditButtonGroupProps) => {
         <span>Sil</span>
         <Trash2 className="text-red-400 w-5 h-5" />
       </button>
+
+      <Modal
+        isOpen={isOpenDeleteModal}
+        onClose={() => setIsDeleteModal(false)}
+        children={
+          <DeleteBoatConfirmation
+            name={name}
+            onClose={() => setIsDeleteModal(false)}
+            id={id}
+          />
+        }
+      />
     </div>
   );
 };
