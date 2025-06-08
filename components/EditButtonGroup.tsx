@@ -18,7 +18,7 @@ const EditButtonGroup = ({ id, name }: EditButtonGroupProps) => {
   };
 
   const handleEdit = () => {
-    router.push(`/add-boat?boatId=${id}`);
+    router.push(`/edit-boat/${id}`);
   };
 
   return (

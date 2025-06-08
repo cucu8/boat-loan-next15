@@ -4,10 +4,12 @@ import Container from "@/components/Container";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { AddBoatFormData } from "@/models";
+import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import TextInput from "@/elements/TextInput";
 import SelectBox from "@/elements/SelectBox";
 import Image from "next/image";
+
 interface AddBoatFormProps {
   ownerId: number;
   countries: {
@@ -17,8 +19,10 @@ interface AddBoatFormProps {
   token: string;
 }
 
-const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
+const EditBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const boatId = searchParams.get("boatId");
 
   const [selectedCountryId, setSelectedCountryId] = useState<number>(1);
   const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
@@ -289,4 +293,4 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
   );
 };
 
-export default AddBoatForm;
+export default EditBoatForm;
