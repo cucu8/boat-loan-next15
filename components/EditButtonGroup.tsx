@@ -4,20 +4,29 @@ import { Delete, Pencil, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
 import Modal from "@/elements/Modal";
 import DeleteBoatConfirmation from "./modalChildren/DeleteBoatConfirmation";
+import { useRouter } from "next/navigation";
 interface EditButtonGroupProps {
   id: number;
   name: string;
 }
 const EditButtonGroup = ({ id, name }: EditButtonGroupProps) => {
+  const router = useRouter();
   const [isOpenDeleteModal, setIsDeleteModal] = React.useState(false);
-  console.log(id);
+
   const handleDelete = () => {
     setIsDeleteModal(true);
   };
 
+  const handleEdit = () => {
+    router.push(`/add-boat?boatId=${id}`);
+  };
+
   return (
     <div className="flex items-center gap-4 p-4 w-full">
-      <button className="flex flex-row rounded-xl p-2 w-full justify-between bg-navy text-neutral">
+      <button
+        onClick={handleEdit}
+        className="flex flex-row rounded-xl p-2 w-full justify-between bg-navy text-neutral"
+      >
         <span>Düzenle</span>
         <Pencil className="text-yellow-500 w-5 h-5" />
       </button>

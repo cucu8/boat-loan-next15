@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}boats`,
+      `${process.env.NEXT_PUBLIC_API_URL}/boats`,
       body,
       {
         httpsAgent,

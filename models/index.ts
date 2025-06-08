@@ -12,9 +12,14 @@ export interface BoatCardModel {
   capacity: number;
   isAvailable: boolean;
   ownerName: string;
+  ownerPhoneNumber: string;
+  cityId: number;
+  cityName: string;
+  countryId: number;
+  countryName: string;
+  districtId: number;
   districtName: string;
-  imageUrls: string[];
-  ownerPhoneNumber?: string;
+  images: { id: number; base64Image: string }[];
 }
 
 export interface AddBoatFormData {
