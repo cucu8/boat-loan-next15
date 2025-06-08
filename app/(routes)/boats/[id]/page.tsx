@@ -13,7 +13,7 @@ export default async function BoatDetailPage({ params }: IdParams) {
       <div className="w-full max-w-4xl bg-navy text-neutral rounded-2xl shadow-xl overflow-hidden">
         {/* Görseller */}
         <ImageCarousel
-          imageUrls={boat.imageUrls}
+          images={boat.images}
           height="h-[300px] md:h-[400px]"
           width="w-full"
         />
