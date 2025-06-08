@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    const { data } = await axios.post(`${apiUrl}users`, body, {
+    const { data } = await axios.post(`${apiUrl}/users`, body, {
       httpsAgent,
       headers: {
         "Content-Type": "application/json",

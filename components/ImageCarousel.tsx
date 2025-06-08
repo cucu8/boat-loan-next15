@@ -4,16 +4,17 @@ import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
 
 interface Props {
-  imageUrls: string[];
+  images: { id: number; base64Image: string }[];
   width?: string;
   height?: string;
 }
 
 const ImageCarousel = ({
-  imageUrls = [],
+  images = [],
   width = "w-full",
   height = "h-64",
 }: Props) => {
+  console.log(images);
   return (
     <Carousel
       showThumbs={false}
@@ -23,10 +24,11 @@ const ImageCarousel = ({
       autoPlay={false}
       className={`${width} ${height}`}
     >
-      {imageUrls.map((item, idx) => (
+      {images.map((item, idx) => (
         <div key={idx} className={`relative ${width} ${height}`}>
+          <img src={item.base64Image} />
           <Image
-            src={`http://localhost:7229${item}`}
+            src={item.base64Image}
             alt={`Image ${idx}`}
             fill
             className="object-cover rounded-t-2xl"

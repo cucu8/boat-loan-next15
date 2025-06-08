@@ -15,13 +15,13 @@ const DeleteBoatConfirmation = ({
   name,
   id,
 }: DeleteBoatConfirmationProps) => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
   const handleSubmit = async () => {
     try {
       const res = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}boats/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/boats/${id}`,
         {
           headers: {
             Authorization: `Bearer ${session?.accessToken}`,

@@ -5,9 +5,10 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import TextInput from "@/elements/TextInput";
-import { AddBoatFormData } from "@/models";
+import { AddBoatFormData, BoatCardModel } from "@/models";
 import SelectBox from "@/elements/SelectBox";
-
+import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 interface AddBoatFormProps {
   ownerId: number;
   countries: {
@@ -19,6 +20,8 @@ interface AddBoatFormProps {
 
 const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const boatId = searchParams.get("boatId");
 
   const [selectedCountryId, setSelectedCountryId] = useState<number>(1);
   const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
@@ -88,7 +91,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:7229/api/boats",
+        `${process.env.NEXT_PUBLIC_API_URL}/boats`,
         formData,
         {
           headers: {
@@ -136,7 +139,42 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
       getDistrictsByCityId(selectedCityId);
     }
   }, [selectedCountryId, selectedCityId]);
+  console.log(form);
+  // useEffect(() => {
+  //   const fetchBoat = async () => {
+  //     if (!boatId) return;
 
+  //     try {
+  //       const res = await axios.get(
+  //         `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/boats/${boatId}`
+  //       );
+
+  //       const boat: BoatCardModel = res.data;
+
+  //       setForm({
+  //         ...form,
+  //         name: boat.name,
+  //         description: boat.description,
+  //         pricePerHour: boat.pricePerHour,
+  //         capacity: boat.capacity,
+  //         districtId: boat.districtId,
+  //         isAvailable: boat.isAvailable,
+  //         ownerId: ownerId,
+  //         images: boat.images,
+  //       });
+
+  //       setSelectedCountryId(boat.countryId);
+  //       setSelectedCityId(boat.cityId);
+  //       setSelectedDistrictId(boat.districtId);
+  //     } catch (error) {
+  //       console.error(error);
+  //       toast.error("Tekne bilgileri alınamadı.");
+  //     }
+  //   };
+
+  //   fetchBoat();
+  // }, [boatId]);
+  // console.log(form);
   return (
     <Container>
       <form
@@ -221,7 +259,14 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
                 key={index}
                 className={`bg-sky-500 text-white px-2 py-1 rounded-lg`}
               >
-                {image.name}
+                <Image
+                  alt={`Image`}
+                  className="object-cover rounded-t-2xl"
+                  width={100}
+                  height={100}
+                  src={URL.createObjectURL(image)}
+                  priority={false}
+                />
               </span>
             ))}
         </div>
