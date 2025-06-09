@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import TextInput from "@/elements/TextInput";
 import SelectBox from "@/elements/SelectBox";
 import Image from "next/image";
+import { X } from "lucide-react";
 interface AddBoatFormProps {
   ownerId: number;
   countries: {
@@ -54,8 +55,15 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
+    const newFiles = [...form.images, ...files];
+    console.log(newFiles);
+    setForm({ ...form, images: newFiles });
+  };
 
-    setForm({ ...form, images: files });
+  const handleDeleteImage = (index: number) => {
+    const updatedImages = form.images.filter((_, i) => i !== index);
+
+    setForm({ ...form, images: updatedImages });
   };
 
   const handleChange = (
@@ -137,41 +145,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
     }
   }, [selectedCountryId, selectedCityId]);
   console.log(form);
-  // useEffect(() => {
-  //   const fetchBoat = async () => {
-  //     if (!boatId) return;
 
-  //     try {
-  //       const res = await axios.get(
-  //         `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/boats/${boatId}`
-  //       );
-
-  //       const boat: BoatCardModel = res.data;
-
-  //       setForm({
-  //         ...form,
-  //         name: boat.name,
-  //         description: boat.description,
-  //         pricePerHour: boat.pricePerHour,
-  //         capacity: boat.capacity,
-  //         districtId: boat.districtId,
-  //         isAvailable: boat.isAvailable,
-  //         ownerId: ownerId,
-  //         images: boat.images,
-  //       });
-
-  //       setSelectedCountryId(boat.countryId);
-  //       setSelectedCityId(boat.cityId);
-  //       setSelectedDistrictId(boat.districtId);
-  //     } catch (error) {
-  //       console.error(error);
-  //       toast.error("Tekne bilgileri alınamadı.");
-  //     }
-  //   };
-
-  //   fetchBoat();
-  // }, [boatId]);
-  // console.log(form);
   return (
     <Container>
       <form
@@ -252,19 +226,24 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
           </label>
           {form.images.length > 0 &&
             form.images.map((image, index) => (
-              <span
+              <div
                 key={index}
-                className={`bg-sky-500 text-white px-2 py-1 rounded-lg`}
+                className={`bg-sky-500 text-white px-2 py-1 rounded-lg relative`}
               >
+                <X
+                  color="red"
+                  className="absolute top-[-4] bg-white rounded-3xl right-[-5] cursor-pointer"
+                  onClick={() => handleDeleteImage(index)}
+                />
                 <Image
                   alt={`Image`}
                   className="object-cover rounded-t-2xl"
-                  width={100}
+                  width={150}
                   height={100}
                   src={URL.createObjectURL(image)}
                   priority={false}
                 />
-              </span>
+              </div>
             ))}
         </div>
         <div className="flex flex-col gap-1">
