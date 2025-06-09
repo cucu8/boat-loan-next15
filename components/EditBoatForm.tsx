@@ -3,23 +3,29 @@ import React, { useEffect, useState } from "react";
 import Container from "@/components/Container";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { AddBoatFormData } from "@/models";
+import { AddBoatFormData, BoatCardModel } from "@/models";
 import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import TextInput from "@/elements/TextInput";
 import SelectBox from "@/elements/SelectBox";
 import Image from "next/image";
 
-interface AddBoatFormProps {
+interface EditBoatFormProps {
   ownerId: number;
   countries: {
     id: number;
     name: string;
   }[];
   token: string;
+  boat: BoatCardModel;
 }
 
-const EditBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
+const EditBoatForm = ({
+  ownerId,
+  countries,
+  token,
+  boat,
+}: EditBoatFormProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const boatId = searchParams.get("boatId");
@@ -31,7 +37,9 @@ const EditBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
     []
   );
   const [selectedDistrictId, setSelectedDistrictId] = useState<number>(0);
-
+  const [boatImages, setBoatImages] = useState<
+    { id: number; base64Image: string }[]
+  >([]);
   const [form, setForm] = useState<AddBoatFormData>({
     name: "",
     description: "",
@@ -141,41 +149,25 @@ const EditBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
     }
   }, [selectedCountryId, selectedCityId]);
   console.log(form);
-  // useEffect(() => {
-  //   const fetchBoat = async () => {
-  //     if (!boatId) return;
+  useEffect(() => {
+    setForm({
+      ...form,
+      name: boat.name,
+      description: boat.description,
+      pricePerHour: boat.pricePerHour,
+      capacity: boat.capacity,
+      districtId: boat.districtId,
+      isAvailable: boat.isAvailable,
+      ownerId: ownerId,
+      images: [],
+    });
 
-  //     try {
-  //       const res = await axios.get(
-  //         `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/boats/${boatId}`
-  //       );
-
-  //       const boat: BoatCardModel = res.data;
-
-  //       setForm({
-  //         ...form,
-  //         name: boat.name,
-  //         description: boat.description,
-  //         pricePerHour: boat.pricePerHour,
-  //         capacity: boat.capacity,
-  //         districtId: boat.districtId,
-  //         isAvailable: boat.isAvailable,
-  //         ownerId: ownerId,
-  //         images: boat.images,
-  //       });
-
-  //       setSelectedCountryId(boat.countryId);
-  //       setSelectedCityId(boat.cityId);
-  //       setSelectedDistrictId(boat.districtId);
-  //     } catch (error) {
-  //       console.error(error);
-  //       toast.error("Tekne bilgileri alınamadı.");
-  //     }
-  //   };
-
-  //   fetchBoat();
-  // }, [boatId]);
-  // console.log(form);
+    setBoatImages(boat.images); // Base64 görüntü için ayrı state
+    setSelectedCountryId(boat.countryId);
+    setSelectedCityId(boat.cityId);
+    setSelectedDistrictId(boat.districtId);
+  }, [boat]);
+  console.log(form);
   return (
     <Container>
       <form
@@ -254,8 +246,8 @@ const EditBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
           >
             Resim seçmek için tıklayınız
           </label>
-          {form.images.length > 0 &&
-            form.images.map((image, index) => (
+          {boatImages.length > 0 &&
+            boatImages.map((image, index) => (
               <span
                 key={index}
                 className={`bg-sky-500 text-white px-2 py-1 rounded-lg`}
@@ -265,7 +257,7 @@ const EditBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
                   className="object-cover rounded-t-2xl"
                   width={100}
                   height={100}
-                  src={URL.createObjectURL(image)}
+                  src={image.base64Image}
                   priority={false}
                 />
               </span>
