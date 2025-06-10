@@ -8,6 +8,7 @@ interface SelectBoxProps {
     name: string;
   }[];
   title: string;
+  disabled?: boolean;
 }
 
 const SelectBox = ({
@@ -15,9 +16,11 @@ const SelectBox = ({
   handleSelectId,
   selectData,
   title,
+  disabled,
 }: SelectBoxProps) => {
   return (
     <select
+      disabled={disabled}
       value={selectedCountryId}
       onChange={handleSelectId}
       className="rounded-md px-3 py-[10px] bg-neutral-100 text-black focus:outline-none focus:ring-2 focus:ring-sky-500"

@@ -111,9 +111,8 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
         toast.success("Tekne başarıyla eklendi!");
         router.push("/");
       }
-    } catch (error) {
-      console.error(error);
-      toast.error("Bir hata oluştu.");
+    } catch (error: any) {
+      toast.error(error?.response?.statusText || "Bir hata oluştu.");
     }
   };
 
@@ -123,7 +122,6 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
 
       if (res.status === 200) setCities(res.data);
     } catch (error) {
-      console.error(error);
       toast.error("Bir hata oluştu.");
     }
   };
@@ -145,7 +143,6 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
       getDistrictsByCityId(selectedCityId);
     }
   }, [selectedCountryId, selectedCityId]);
-  console.log(form);
 
   return (
     <Container>
@@ -202,6 +199,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
           selectedCountryId={selectedCountryId}
           selectData={countries}
           title="Ülke Seçiniz"
+          disabled
         />
 
         <SelectBox

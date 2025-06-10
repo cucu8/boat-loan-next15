@@ -16,12 +16,7 @@ export default function BoatCard({ boat }: { boat: BoatCardModel }) {
           <p>
             <strong>Kapasite:</strong> {boat.capacity} kişi
           </p>
-          <p>
-            <strong>İlçe:</strong> {boat.districtName}
-          </p>
-          <p>
-            <strong>Sahibi:</strong> {boat.ownerName}
-          </p>
+
           <p>
             <strong>Durum:</strong>
             <span
@@ -31,8 +26,15 @@ export default function BoatCard({ boat }: { boat: BoatCardModel }) {
             </span>
           </p>
           <p>
-            <strong>Telefon Numarası</strong>
+            <strong>Sahibi:</strong> {boat.ownerName}
+          </p>
+
+          <p>
+            <strong>Telefon Numarası: </strong>
             <span>{boat.ownerPhoneNumber}</span>
+          </p>
+          <p>
+            {boat.countryName} / {boat.cityName} / {boat.districtName}
           </p>
         </div>
       </div>

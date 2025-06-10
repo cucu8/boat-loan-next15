@@ -14,7 +14,7 @@ export default async function EditBoatPage({
   const coutries = await responseCountries.json();
   const res = await fetch(`http://localhost:3000/api/boats/${boatId}`);
   const boat: BoatCardModel = await res.json();
-  console.log("BOAT", boat);
+
   return (
     <div>
       <h1>Edit Boat Page (Server Side)</h1>

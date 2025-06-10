@@ -14,7 +14,6 @@ const ImageCarousel = ({
   width = "w-full",
   height = "h-64",
 }: Props) => {
-  console.log(images);
   return (
     <Carousel
       showThumbs={false}
