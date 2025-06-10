@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import Container from "@/components/Container";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { AddBoatFormData, BoatCardModel } from "@/models";
-import { useSearchParams } from "next/navigation";
+import { BoatCardModel, UpdateBoatFormData } from "@/models"; // UpdateBoatFormData'yı import et
+import { useSearchParams } from "next/navigation"; // Henüz kullanılmasa da kalsın
 import toast from "react-hot-toast";
 import TextInput from "@/elements/TextInput";
 import SelectBox from "@/elements/SelectBox";
 import Image from "next/image";
+import { X } from "lucide-react";
 
 interface EditBoatFormProps {
   ownerId: number;
@@ -17,7 +18,7 @@ interface EditBoatFormProps {
     name: string;
   }[];
   token: string;
-  boat: BoatCardModel;
+  boat: BoatCardModel; // Mevcut tekne bilgileri
 }
 
 const EditBoatForm = ({
@@ -27,57 +28,122 @@ const EditBoatForm = ({
   boat,
 }: EditBoatFormProps) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const boatId = searchParams.get("boatId");
-
-  const [selectedCountryId, setSelectedCountryId] = useState<number>(1);
+  // State'leri boat prop'undan gelen başlangıç değerleriyle doldur
+  const [selectedCountryId, setSelectedCountryId] = useState<number>(
+    boat.countryId
+  );
   const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
-  const [selectedCityId, setSelectedCityId] = useState<number>(0);
+  const [selectedCityId, setSelectedCityId] = useState<number>(boat.cityId);
   const [districts, setDistricts] = useState<{ id: number; name: string }[]>(
     []
   );
-  const [selectedDistrictId, setSelectedDistrictId] = useState<number>(0);
-  const [boatImages, setBoatImages] = useState<
+  const [selectedDistrictId, setSelectedDistrictId] = useState<number>(
+    boat.districtId
+  );
+
+  // Mevcut resimlerin yönetimi için state'ler
+  const [existingBoatImages, setExistingBoatImages] = useState<
     { id: number; base64Image: string }[]
   >([]);
-  const [form, setForm] = useState<AddBoatFormData>({
+  const [imagesToDelete, setImagesToDelete] = useState<number[]>([]); // Silinecek resimlerin ID'leri
+
+  // Yeni eklenecek resim dosyaları
+  const [newImages, setNewImages] = useState<File[]>([]);
+
+  // Form verileri için state, UpdateBoatFormData tipinde olacak
+  const [form, setForm] = useState<UpdateBoatFormData>({
     name: "",
     description: "",
     pricePerHour: null,
     capacity: null,
     isAvailable: true,
     districtId: null,
-    images: [],
-    ownerId: ownerId,
+    ownerId: ownerId, // ownerId'yi doğrudan prop'tan al
+    newImages: [], // Başlangıçta boş
+    imagesToDelete: [], // Başlangıçta boş
   });
 
-  const handleSelectCountryId = (e: any) => {
-    setSelectedCountryId(e.target.value);
+  // İlk render'da ve `boat` prop'u değiştiğinde formu ve resimleri doldur
+  useEffect(() => {
+    if (boat) {
+      setForm({
+        name: boat.name,
+        description: boat.description,
+        pricePerHour: boat.pricePerHour,
+        capacity: boat.capacity,
+        isAvailable: boat.isAvailable,
+        districtId: boat.districtId,
+        ownerId: ownerId,
+        newImages: [], // Yeni resimler her zaman başlangıçta boş olmalı
+        imagesToDelete: [], // Silinecek resimler de başlangıçta boş olmalı
+      });
+      setExistingBoatImages(boat.images); // Mevcut resimleri state'e kaydet
+      setSelectedCountryId(boat.countryId);
+      setSelectedCityId(boat.cityId);
+      setSelectedDistrictId(boat.districtId);
+    }
+  }, [boat, ownerId]); // ownerId bağımlılığı eklendi
+
+  // Ülke, Şehir, İlçe seçimlerini yönet
+  const handleSelectCountryId = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCountryId(Number(e.target.value));
+    setSelectedCityId(0); // Ülke değişince şehir ve ilçe resetlensin
+    setSelectedDistrictId(0);
+    setCities([]);
+    setDistricts([]);
   };
 
-  const handleSelectCityId = (e: any) => {
-    setSelectedCityId(e.target.value);
+  const handleSelectCityId = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCityId(Number(e.target.value));
+    setSelectedDistrictId(0); // Şehir değişince ilçe resetlensin
+    setDistricts([]);
   };
 
-  const handleSelectDistrictId = (e: any) => {
-    setSelectedDistrictId(e.target.value);
-    setForm({ ...form, districtId: e.target.value });
+  const handleSelectDistrictId = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const districtId = Number(e.target.value);
+    setSelectedDistrictId(districtId);
+    setForm((prevForm) => ({ ...prevForm, districtId: districtId }));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Yeni resim dosyalarını yönet
+  const handleNewFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-
-    setForm({ ...form, images: files });
+    setNewImages((prevImages) => [...prevImages, ...files]);
   };
 
+  // Mevcut resimlerden birini silme işlemi
+  const handleDeleteExistingImage = (imageId: number) => {
+    // UI'dan kaldır
+    setExistingBoatImages((prevImages) =>
+      prevImages.filter((img) => img.id !== imageId)
+    );
+
+    // Silinecekler listesine ekle
+    setImagesToDelete((prevIds) => [...prevIds, imageId]);
+    setForm((prevForm) => ({
+      ...prevForm,
+      imagesToDelete: [...prevForm.imagesToDelete, imageId],
+    }));
+  };
+
+  // Yeni yüklenmiş (ama henüz API'ye gönderilmemiş) bir resmi silme işlemi
+  const handleDeleteNewImage = (index: number) => {
+    setNewImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+  // Form input değişikliklerini yönet
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target as HTMLInputElement;
 
-    setForm({ ...form, [name]: value });
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
+  // Form gönderimi
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -90,17 +156,26 @@ const EditBoatForm = ({
     formData.append("DistrictId", form.districtId?.toString() || "0");
     formData.append("OwnerId", form.ownerId.toString());
 
+    // Tarih alanları
     const now = new Date().toISOString();
     formData.append("AvailableFrom", now);
     formData.append("AvailableTo", now);
 
-    form.images.forEach((file) => {
-      formData.append("Images", file);
+    // Yeni resimleri ekle
+    newImages.forEach((file) => {
+      formData.append("NewImages", file); // API'deki 'NewImages' adıyla eşleşmeli
+    });
+
+    // Silinecek resim ID'lerini ekle
+    // FormData'ya array göndermek için her bir elemanı ayrı ayrı append etmek gerekir.
+    form.imagesToDelete.forEach((id) => {
+      formData.append("ImagesToDelete", id.toString()); // API'deki 'ImagesToDelete' adıyla eşleşmeli
     });
 
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/boats`,
+      // POST yerine PUT metodu kullanılacak ve URL'ye tekne ID'si eklenecek
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/boats/${boat.id}`, // boat.id'yi URL'ye ekle
         formData,
         {
           headers: {
@@ -110,71 +185,61 @@ const EditBoatForm = ({
         }
       );
 
-      if (res.status === 201) {
-        toast.success("Tekne başarıyla eklendi!");
-        router.push("/");
+      if (res.status === 200) {
+        // 200 OK bekleniyor, 204 NoContent de olabilir duruma göre
+        toast.success("Tekne başarıyla güncellendi!");
+        router.push(`/user/boats/${ownerId}`); // Kullanıcının tekneler sayfasına yönlendir
       }
     } catch (error) {
-      console.error(error);
-      toast.error("Bir hata oluştu.");
+      console.error("Tekne güncellenirken hata oluştu:", error);
+      toast.error("Tekne güncellenirken bir hata oluştu.");
     }
   };
 
+  // Şehirleri ve İlçeleri API'den çekme
   const getCitiesByCountryId = async (id: number) => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/cities/${id}`);
-
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/cities/${id}`
+      );
       if (res.status === 200) setCities(res.data);
     } catch (error) {
       console.error(error);
-      toast.error("Bir hata oluştu.");
+      toast.error("Şehirler çekilirken hata oluştu.");
     }
   };
 
   const getDistrictsByCityId = async (id: number) => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/districts/${id}`);
-
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/districts/${id}`
+      );
       if (res.status === 200) setDistricts(res.data);
     } catch (error) {
       console.error(error);
-      toast.error("Bir hata oluştu.");
+      toast.error("İlçeler çekilirken hata oluştu.");
     }
   };
 
   useEffect(() => {
-    getCitiesByCountryId(selectedCountryId);
+    if (selectedCountryId !== 0) {
+      getCitiesByCountryId(selectedCountryId);
+    }
+  }, [selectedCountryId]);
+
+  useEffect(() => {
     if (selectedCityId !== 0) {
       getDistrictsByCityId(selectedCityId);
     }
-  }, [selectedCountryId, selectedCityId]);
-  console.log(form);
-  useEffect(() => {
-    setForm({
-      ...form,
-      name: boat.name,
-      description: boat.description,
-      pricePerHour: boat.pricePerHour,
-      capacity: boat.capacity,
-      districtId: boat.districtId,
-      isAvailable: boat.isAvailable,
-      ownerId: ownerId,
-      images: [],
-    });
+  }, [selectedCityId]);
 
-    setBoatImages(boat.images); // Base64 görüntü için ayrı state
-    setSelectedCountryId(boat.countryId);
-    setSelectedCityId(boat.cityId);
-    setSelectedDistrictId(boat.districtId);
-  }, [boat]);
-  console.log(form);
   return (
     <Container>
       <form
         onSubmit={handleSubmit}
         className="bg-navy text-neutral max-w-md w-full mx-auto p-6 rounded-2xl shadow-lg flex flex-col gap-4"
       >
-        <h2 className="text-2xl font-bold text-center">Tekne Ekle</h2>
+        <h2 className="text-2xl font-bold text-center">Tekne Düzenle</h2>
 
         {/* Tekne Adı */}
         <TextInput
@@ -218,6 +283,22 @@ const EditBoatForm = ({
           minValue={0}
         />
 
+        {/* Mevcut Durum (IsAvailable) - Checkbox olarak ekleyebiliriz */}
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="isAvailable"
+            id="isAvailable"
+            checked={form.isAvailable}
+            onChange={handleChange}
+            className="form-checkbox h-4 w-4 text-sky-600 transition duration-150 ease-in-out"
+          />
+          <label htmlFor="isAvailable" className="text-sm">
+            Müsait mi?
+          </label>
+        </div>
+
+        {/* Konum Seçiciler */}
         <SelectBox
           handleSelectId={handleSelectCountryId}
           selectedCountryId={selectedCountryId}
@@ -239,46 +320,90 @@ const EditBoatForm = ({
           title="İlçe Seçiniz"
         />
 
-        <div className="flex items-center flex-col gap-2">
+        {/* Resim Yükleme ve Önizleme */}
+        <div className="flex flex-col gap-2">
           <label
             htmlFor="file-upload"
-            className="bg-green-700 text-center w-full p-2 rounded-lg"
+            className="bg-green-700 text-center w-full p-2 rounded-lg cursor-pointer"
           >
-            Resim seçmek için tıklayınız
+            Yeni resim seçmek için tıklayınız
           </label>
-          {boatImages.length > 0 &&
-            boatImages.map((image, index) => (
-              <span
-                key={index}
-                className={`bg-sky-500 text-white px-2 py-1 rounded-lg`}
-              >
-                <Image
-                  alt={`Image`}
-                  className="object-cover rounded-t-2xl"
-                  width={100}
-                  height={100}
-                  src={image.base64Image}
-                  priority={false}
-                />
-              </span>
-            ))}
-        </div>
-        <div className="flex flex-col gap-1">
           <input
             id="file-upload"
             type="file"
             accept="image/*"
             capture="environment"
             multiple
-            onChange={handleFileChange}
+            onChange={handleNewFileChange}
             className="hidden"
           />
+
+          {/* Mevcut Resimlerin Önizlemesi ve Silme Butonları */}
+          {existingBoatImages.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold mb-2">Mevcut Resimler</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {existingBoatImages.map((image) => (
+                  <div key={image.id} className="relative group">
+                    <Image
+                      alt={`Mevcut Resim ${image.id}`}
+                      className="object-cover rounded-lg w-full h-24"
+                      width={100}
+                      height={100}
+                      src={image.base64Image}
+                      priority={false}
+                    />
+                    <button
+                      type="button" // Formu submit etmemesi için type="button"
+                      onClick={() => handleDeleteExistingImage(image.id)}
+                      className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                      aria-label="Resmi Sil"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Yeni Yüklenen Resimlerin Önizlemesi ve Silme Butonları */}
+          {newImages.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold mb-2">
+                Yeni Yüklenecek Resimler
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {newImages.map((file, index) => (
+                  <div key={index} className="relative group">
+                    <Image
+                      alt={`Yeni Resim ${index}`}
+                      className="object-cover rounded-lg w-full h-24"
+                      width={100}
+                      height={100}
+                      src={URL.createObjectURL(file)} // Yeni yüklenen dosyaları URL olarak göster
+                      priority={false}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteNewImage(index)}
+                      className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                      aria-label="Resmi Sil"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
+
         <button
           type="submit"
-          className="bg-sky-500 hover:bg-sky-400 transition-colors text-white font-semibold py-2 rounded-lg"
+          className="bg-yellow-500 hover:bg-yellow-400 transition-colors text-white font-semibold py-2 rounded-lg"
         >
-          Ekle
+          Güncelle
         </button>
       </form>
     </Container>

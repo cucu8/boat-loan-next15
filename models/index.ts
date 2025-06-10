@@ -33,6 +33,18 @@ export interface AddBoatFormData {
   ownerId: number;
 }
 
+export interface UpdateBoatFormData {
+  name: string;
+  description: string;
+  pricePerHour: number | null;
+  capacity: number | null;
+  isAvailable: boolean;
+  districtId: number | null;
+  ownerId: number; // OwnerId, API'de güncellenmese bile göndermek genelde iyi bir pratiktir.
+  newImages: File[]; // Yeni eklenecek resim dosyaları
+  imagesToDelete: number[]; // Silinecek mevcut resimlerin ID'leri
+}
+
 export interface LoginSuccessResponse {
   token: string;
   user: { id: number; email: string; userType: number; name: string };

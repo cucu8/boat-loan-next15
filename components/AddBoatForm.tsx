@@ -9,6 +9,7 @@ import TextInput from "@/elements/TextInput";
 import SelectBox from "@/elements/SelectBox";
 import Image from "next/image";
 import { X } from "lucide-react";
+
 interface AddBoatFormProps {
   ownerId: number;
   countries: {
@@ -56,7 +57,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     const newFiles = [...form.images, ...files];
-    console.log(newFiles);
+
     setForm({ ...form, images: newFiles });
   };
 
