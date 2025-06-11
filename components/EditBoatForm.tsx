@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import Container from "@/components/Container";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { BoatCardModel, UpdateBoatFormData } from "@/models"; // UpdateBoatFormData'yı import et
-import { useSearchParams } from "next/navigation"; // Henüz kullanılmasa da kalsın
+import { BoatCardModel, UpdateBoatFormData } from "@/models"; // UpdateBoatFormData'yı
 import toast from "react-hot-toast";
 import TextInput from "@/elements/TextInput";
 import SelectBox from "@/elements/SelectBox";
@@ -45,7 +44,9 @@ const EditBoatForm = ({
   const [existingBoatImages, setExistingBoatImages] = useState<
     { id: number; base64Image: string }[]
   >([]);
-  const [imagesToDelete, setImagesToDelete] = useState<number[]>([]); // Silinecek resimlerin ID'leri
+
+  const [imagesToDelete, setImagesToDelete] = useState<number[]>([]);
+  // Silinecek resimlerin ID'leri
 
   // Yeni eklenecek resim dosyaları
   const [newImages, setNewImages] = useState<File[]>([]);
@@ -163,19 +164,16 @@ const EditBoatForm = ({
 
     // Yeni resimleri ekle
     newImages.forEach((file) => {
-      formData.append("NewImages", file); // API'deki 'NewImages' adıyla eşleşmeli
+      formData.append("NewImages", file);
     });
 
-    // Silinecek resim ID'lerini ekle
-    // FormData'ya array göndermek için her bir elemanı ayrı ayrı append etmek gerekir.
     form.imagesToDelete.forEach((id) => {
-      formData.append("ImagesToDelete", id.toString()); // API'deki 'ImagesToDelete' adıyla eşleşmeli
+      formData.append("ImagesToDelete", id.toString());
     });
 
     try {
-      // POST yerine PUT metodu kullanılacak ve URL'ye tekne ID'si eklenecek
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/boats/${boat.id}`, // boat.id'yi URL'ye ekle
+        `${process.env.NEXT_PUBLIC_API_URL}/boats/${boat.id}`,
         formData,
         {
           headers: {
@@ -186,9 +184,8 @@ const EditBoatForm = ({
       );
 
       if (res.status === 200) {
-        // 200 OK bekleniyor, 204 NoContent de olabilir duruma göre
         toast.success("Tekne başarıyla güncellendi!");
-        router.push(`/user/boats/${ownerId}`); // Kullanıcının tekneler sayfasına yönlendir
+        router.push(`/user/boats/${ownerId}`);
       }
     } catch (error) {
       console.error("Tekne güncellenirken hata oluştu:", error);
@@ -356,7 +353,7 @@ const EditBoatForm = ({
                     <button
                       type="button" // Formu submit etmemesi için type="button"
                       onClick={() => handleDeleteExistingImage(image.id)}
-                      className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 "
                       aria-label="Resmi Sil"
                     >
                       <X size={16} />

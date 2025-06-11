@@ -49,16 +49,16 @@ const DeleteBoatConfirmation = ({
       </div>
       <div className="flex items-center justify-end mt-4 gap-4">
         <button
-          onClick={handleSubmit}
-          className="bg-mint-500 hover:bg-mint-400 text-neutral px-4 py-2 rounded-xl"
-        >
-          Evet
-        </button>
-        <button
           onClick={onClose}
           className="bg-red-500  text-neutral px-4 py-2 rounded-xl"
         >
           Hayır
+        </button>
+        <button
+          onClick={handleSubmit}
+          className="bg-mint-500 hover:bg-mint-400 text-neutral px-4 py-2 rounded-xl"
+        >
+          Evet
         </button>
       </div>
     </div>

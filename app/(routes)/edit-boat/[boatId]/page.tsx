@@ -17,8 +17,6 @@ export default async function EditBoatPage({
 
   return (
     <div>
-      <h1>Edit Boat Page (Server Side)</h1>
-      <p>Boat ID: {JSON.stringify(boat)}</p>
       <EditBoatForm
         ownerId={Number(session?.user?.id)}
         countries={coutries}

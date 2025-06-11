@@ -25,14 +25,14 @@ const EditButtonGroup = ({ id, name }: EditButtonGroupProps) => {
     <div className="flex items-center gap-4 p-4 w-full">
       <button
         onClick={handleEdit}
-        className="flex flex-row rounded-xl p-2 w-full justify-between bg-navy text-neutral"
+        className="flex flex-row rounded-xl p-2 w-full justify-between bg-navy text-neutral items-center hover:bg-navy-600"
       >
         <span>Düzenle</span>
         <Pencil className="text-yellow-500 w-5 h-5" />
       </button>
       <button
         onClick={handleDelete}
-        className="flex flex-row rounded-xl p-2 w-full justify-between bg-navy text-neutral"
+        className="flex flex-row rounded-xl p-2 w-full justify-between bg-navy text-neutral items-center hover:bg-navy-600"
       >
         <span>Sil</span>
         <Trash2 className="text-red-400 w-5 h-5" />

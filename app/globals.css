@@ -44,6 +44,9 @@
 .bg-navy {
   background-color: var(--color-navy-700);
 }
+.bg-navy-600 {
+  background-color: var(--color-navy-600);
+}
 .text-sky-400 {
   color: var(--color-text-sky-400);
 }

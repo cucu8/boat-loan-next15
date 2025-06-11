@@ -229,11 +229,14 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
                 key={index}
                 className={`bg-sky-500 text-white px-2 py-1 rounded-lg relative`}
               >
-                <X
-                  color="red"
-                  className="absolute top-[-4] bg-white rounded-3xl right-[-5] cursor-pointer"
+                <button
+                  type="button" // Formu submit etmemesi için type="button"
                   onClick={() => handleDeleteImage(index)}
-                />
+                  className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 "
+                  aria-label="Resmi Sil"
+                >
+                  <X size={16} />
+                </button>
                 <Image
                   alt={`Image`}
                   className="object-cover rounded-t-2xl"
@@ -258,7 +261,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
         </div>
         <button
           type="submit"
-          className="bg-sky-500 hover:bg-sky-400 transition-colors text-white font-semibold py-2 rounded-lg"
+          className="bg-sky-500 cursor-pointer hover:bg-sky-400 transition-colors text-white font-semibold py-2 rounded-lg"
         >
           Ekle
         </button>
