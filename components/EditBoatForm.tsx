@@ -39,7 +39,7 @@ const EditBoatForm = ({
   const [selectedDistrictId, setSelectedDistrictId] = useState<number>(
     boat.districtId
   );
-
+  const [isAvailable, setIsAvailable] = useState<boolean>(boat.isAvailable);
   // Mevcut resimlerin yönetimi için state'ler
   const [existingBoatImages, setExistingBoatImages] = useState<
     { id: number; base64Image: string }[]
@@ -63,27 +63,6 @@ const EditBoatForm = ({
     newImages: [], // Başlangıçta boş
     imagesToDelete: [], // Başlangıçta boş
   });
-
-  // İlk render'da ve `boat` prop'u değiştiğinde formu ve resimleri doldur
-  useEffect(() => {
-    if (boat) {
-      setForm({
-        name: boat.name,
-        description: boat.description,
-        pricePerHour: boat.pricePerHour,
-        capacity: boat.capacity,
-        isAvailable: boat.isAvailable,
-        districtId: boat.districtId,
-        ownerId: ownerId,
-        newImages: [], // Yeni resimler her zaman başlangıçta boş olmalı
-        imagesToDelete: [], // Silinecek resimler de başlangıçta boş olmalı
-      });
-      setExistingBoatImages(boat.images); // Mevcut resimleri state'e kaydet
-      setSelectedCountryId(boat.countryId);
-      setSelectedCityId(boat.cityId);
-      setSelectedDistrictId(boat.districtId);
-    }
-  }, [boat, ownerId]); // ownerId bağımlılığı eklendi
 
   // Ülke, Şehir, İlçe seçimlerini yönet
   const handleSelectCountryId = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -185,14 +164,14 @@ const EditBoatForm = ({
 
       if (res.status === 200) {
         toast.success("Tekne başarıyla güncellendi!");
-        router.push(`/user/boats/${ownerId}`);
+        router.push(`/my-boats`);
       }
     } catch (error) {
       console.error("Tekne güncellenirken hata oluştu:", error);
       toast.error("Tekne güncellenirken bir hata oluştu.");
     }
   };
-
+  console.log(form);
   // Şehirleri ve İlçeleri API'den çekme
   const getCitiesByCountryId = async (id: number) => {
     try {
@@ -229,6 +208,34 @@ const EditBoatForm = ({
       getDistrictsByCityId(selectedCityId);
     }
   }, [selectedCityId]);
+
+  // İlk render'da ve `boat` prop'u değiştiğinde formu ve resimleri doldur
+  useEffect(() => {
+    if (boat) {
+      setForm({
+        name: boat.name,
+        description: boat.description,
+        pricePerHour: boat.pricePerHour,
+        capacity: boat.capacity,
+        isAvailable: boat.isAvailable,
+        districtId: boat.districtId,
+        ownerId: ownerId,
+        newImages: [], // Yeni resimler her zaman başlangıçta boş olmalı
+        imagesToDelete: [], // Silinecek resimler de başlangıçta boş olmalı
+      });
+      setExistingBoatImages(boat.images); // Mevcut resimleri state'e kaydet
+      setSelectedCountryId(boat.countryId);
+      setSelectedCityId(boat.cityId);
+      setSelectedDistrictId(boat.districtId);
+    }
+  }, [boat, ownerId]); // ownerId bağımlılığı eklendi
+
+  useEffect(() => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      isAvailable: isAvailable,
+    }));
+  }, [isAvailable]);
 
   return (
     <Container>
@@ -280,19 +287,22 @@ const EditBoatForm = ({
           minValue={0}
         />
 
-        {/* Mevcut Durum (IsAvailable) - Checkbox olarak ekleyebiliriz */}
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            name="isAvailable"
-            id="isAvailable"
-            checked={form.isAvailable}
-            onChange={handleChange}
-            className="form-checkbox h-4 w-4 text-sky-600 transition duration-150 ease-in-out"
-          />
-          <label htmlFor="isAvailable" className="text-sm">
+        <div className="flex items-center justify-between gap-2">
+          <label htmlFor="isAvailable" className="text-lg">
             Müsait mi?
           </label>
+          <div
+            className={`relative inline-flex items-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out ${
+              isAvailable ? "bg-green-700" : "bg-red-700"
+            } w-12 h-6`}
+            onClick={() => setIsAvailable(!isAvailable)}
+          >
+            <span
+              className={`inline-block w-5 h-5 transform rounded-full bg-white shadow-lg transition-transform duration-200 ease-in-out ${
+                isAvailable ? "translate-x-6" : "translate-x-1"
+              }`}
+            />
+          </div>
         </div>
 
         {/* Konum Seçiciler */}
@@ -335,7 +345,6 @@ const EditBoatForm = ({
             className="hidden"
           />
 
-          {/* Mevcut Resimlerin Önizlemesi ve Silme Butonları */}
           {existingBoatImages.length > 0 && (
             <div className="mt-4">
               <h3 className="text-lg font-semibold mb-2">Mevcut Resimler</h3>
