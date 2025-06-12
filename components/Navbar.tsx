@@ -32,7 +32,7 @@ export default function Navbar() {
               ) : session ? (
                 <>
                   <NavbarMenuItem
-                    href="/profile"
+                    href={`/profile/${session.user.id}`}
                     title={session.user?.name || "Profile"}
                   />
                   <LogoutButton />

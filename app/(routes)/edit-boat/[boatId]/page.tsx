@@ -1,5 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import EditBoatForm from "@/components/EditBoatForm";
+import EditBoatForm from "@/components/Forms/EditBoatForm";
 import { BoatCardModel } from "@/models";
 import { getServerSession } from "next-auth";
 

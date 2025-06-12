@@ -26,7 +26,7 @@ const Register = () => {
     const res = await axios.post("http://localhost:3000/api/users/register", {
       ...form,
       password: encrypt(form.password),
-      confirmPassword: decrypt(form.confirmPassword),
+      confirmPassword: encrypt(form.confirmPassword),
       userType: 0,
     });
 

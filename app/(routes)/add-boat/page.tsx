@@ -1,6 +1,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import AddBoatForm from "@/components/Forms/AddBoatForm";
 import { getServerSession } from "next-auth";
-import AddBoatForm from "@/components/AddBoatForm";
 
 const AddBoat = async () => {
   const session = await getServerSession(authOptions);

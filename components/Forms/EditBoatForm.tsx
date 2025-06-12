@@ -136,15 +136,17 @@ const EditBoatForm = ({
     formData.append("DistrictId", form.districtId?.toString() || "0");
     formData.append("OwnerId", form.ownerId.toString());
 
-    // Tarih alanları
     const now = new Date().toISOString();
     formData.append("AvailableFrom", now);
     formData.append("AvailableTo", now);
 
-    // Yeni resimleri ekle
-    newImages.forEach((file) => {
-      formData.append("NewImages", file);
-    });
+    if (newImages && newImages.length > 0) {
+      newImages.map((file) => {
+        formData.append("NewImages", file);
+      });
+    } else {
+      formData.append("NewImages", "");
+    }
 
     form.imagesToDelete.forEach((id) => {
       formData.append("ImagesToDelete", id.toString());
@@ -171,8 +173,7 @@ const EditBoatForm = ({
       toast.error("Tekne güncellenirken bir hata oluştu.");
     }
   };
-  console.log(form);
-  // Şehirleri ve İlçeleri API'den çekme
+
   const getCitiesByCountryId = async (id: number) => {
     try {
       const res = await axios.get(
