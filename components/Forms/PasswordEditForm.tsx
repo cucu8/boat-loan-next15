@@ -83,7 +83,6 @@ const PasswordEditForm = ({ token, id }: PasswordEditFormProps) => {
       >
         <h2 className="text-2xl font-bold text-center">Şifre Değiştir</h2>
 
-        {/* Mevcut Şifre */}
         <TextInput
           handleChange={handleChange}
           value={form.currentPassword}
@@ -93,7 +92,6 @@ const PasswordEditForm = ({ token, id }: PasswordEditFormProps) => {
           placeholder="Mevcut Şifreniz"
         />
 
-        {/* Yeni Şifre */}
         <TextInput
           handleChange={handleChange}
           value={form.newPassword}
@@ -103,7 +101,6 @@ const PasswordEditForm = ({ token, id }: PasswordEditFormProps) => {
           placeholder="Yeni Şifreniz"
         />
 
-        {/* Yeni Şifre Tekrar */}
         <TextInput
           handleChange={handleChange}
           value={form.newPasswordConfirm}

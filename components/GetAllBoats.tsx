@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Container from "./Container";
-import { BoatCardModel } from "@/models";
+import { AllBoatsQueries, BoatCardModel } from "@/models";
 import BoatCard from "./BoatCard";
 import { buildUrlWithQueryParams } from "@/libs";
 import TextInput from "@/elements/TextInput";
@@ -13,13 +13,6 @@ interface GetAllBoatsProps {
   boats: BoatCardModel[];
 }
 
-interface AllBoatsQueries {
-  capacity: string | number;
-  price: string | number;
-  city: string;
-  discrict: string;
-}
-
 const GetAllBoats = ({ boats }: GetAllBoatsProps) => {
   const [allBoats, setAllBoats] = useState<BoatCardModel[]>(boats);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -28,7 +21,7 @@ const GetAllBoats = ({ boats }: GetAllBoatsProps) => {
     capacity: "",
     price: "",
     city: "",
-    discrict: "",
+    disctrict: "",
   });
 
   const getBoats = async (queriesProps?: AllBoatsQueries) => {
@@ -57,13 +50,13 @@ const GetAllBoats = ({ boats }: GetAllBoatsProps) => {
       capacity: "",
       price: "",
       city: "",
-      discrict: "",
+      disctrict: "",
     });
     getBoats({
       capacity: "",
       price: "",
       city: "",
-      discrict: "",
+      disctrict: "",
     });
   };
 
@@ -118,9 +111,9 @@ const GetAllBoats = ({ boats }: GetAllBoatsProps) => {
       <TextInput
         placeholder="İlçe"
         handleChange={handleChange}
-        name="discrict"
+        name="disctrict"
         title="İlçe"
-        value={queries.discrict}
+        value={queries.disctrict}
         hiddenTitle
         extraClass="w-full sm:w-min"
       />

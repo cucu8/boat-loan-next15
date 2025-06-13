@@ -55,3 +55,10 @@ export interface UpdatePasswordFormData {
   newPassword: string;
   newPasswordConfirm: string;
 }
+
+export interface AllBoatsQueries {
+  capacity: string | number;
+  price: string | number;
+  city: string;
+  disctrict: string;
+}
