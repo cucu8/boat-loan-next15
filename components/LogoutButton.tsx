@@ -6,8 +6,8 @@ const LogoutButton = () => {
   const router = useRouter();
 
   const logout = () => {
-    signOut();
     router.push("/");
+    signOut();
   };
 
   return (

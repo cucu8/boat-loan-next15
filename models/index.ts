@@ -49,3 +49,9 @@ export interface LoginSuccessResponse {
   token: string;
   user: { id: number; email: string; userType: number; name: string };
 }
+
+export interface UpdatePasswordFormData {
+  currentPassword: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}

@@ -10,9 +10,11 @@ export default async function EditBoatPage({
 }) {
   const { boatId } = await params;
   const session = await getServerSession(authOptions);
-  const responseCountries = await fetch("http://localhost:3000/api/countries");
+  const responseCountries = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/countries`
+  );
   const coutries = await responseCountries.json();
-  const res = await fetch(`http://localhost:3000/api/boats/${boatId}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boats/${boatId}`);
   const boat: BoatCardModel = await res.json();
 
   return (

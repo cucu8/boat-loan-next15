@@ -7,53 +7,57 @@ export default withAuth(
     const { pathname } = req.nextUrl;
     const { token } = req.nextauth;
 
+    // If the user has a token and tries to access login or register, redirect to home
     if (token && (pathname === "/login" || pathname === "/register")) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
+    // This block is now primarily for logging or specific custom redirects
+    // if next-auth's default unauthorized redirect isn't sufficient for these paths.
+    // However, the 'authorized' callback will handle the primary protection.
     if (
       !token &&
       (pathname === "/add-boat" ||
         pathname === "/my-boats" ||
-        pathname === "/profile")
+        pathname.startsWith("/profile")) // Use startsWith for '/profile/:path*'
     ) {
       console.log(
-        "Oturum kapalı, /add-boat'a erişim engellendi. Ana sayfaya yönlendiriliyor."
+        "Oturum kapalı, korunan bir sayfaya erişim engellendi. Giriş sayfasına yönlendiriliyor."
       );
-
+      // next-auth's default redirect will usually handle this,
+      // but this custom redirect ensures it.
       return NextResponse.redirect(new URL("/login", req.url));
     }
-    // Diğer tüm durumlar için normal akışı devam ettir
+
+    // Continue normal flow for all other cases
     return NextResponse.next();
   },
   {
     callbacks: {
-      // Bu callback, middleware'in çalıştırılıp çalıştırılmayacağını belirler.
-      // Her zaman çalışmasını istiyorsanız true döndürebilirsiniz,
-      // ancak belirli rotaları korumak için daha spesifik mantık ekleyebilirsiniz.
       authorized: ({ token, req }) => {
-        // Eğer kullanıcı login veya register sayfasına gidiyorsa
-        // ve token varsa (yani oturum açmışsa), middleware'in çalışması gerekir.
-        // Bu, yukarıdaki redirect mantığının tetiklenmesini sağlar.
-        if (
-          (req.nextUrl.pathname === "/login" ||
-            req.nextUrl.pathname === "/register") &&
-          token
-        ) {
+        const { pathname } = req.nextUrl;
+
+        // Allow access to login/register pages regardless of token presence for the initial load.
+        // If a token exists AND user tries to access login/register, the `middleware` function
+        // above will handle the redirect to '/'.
+        if (pathname === "/login" || pathname === "/register") {
           return true;
         }
-        // Diğer durumlar için, token varsa veya korunması gereken bir rotada değilse
-        // middleware'in çalışmasına gerek kalmaz (veya yetkilendirme mantığına göre karar verir).
-        // Genellikle, protected route'lar için buraya 'token' kontrolü eklenir.
-        // Bu senaryoda sadece login/register için yönlendirme istediğimizden
-        // bu callback'i basit tutabiliriz.
-        return true;
+
+        // For all other routes specified in matcher, require a token.
+        // If no token, next-auth will redirect to the configured signIn page.
+        // If there is a token, the middleware function runs.
+        return !!token; // Returns true if token exists, false otherwise.
       },
     },
+    // Specify your default sign-in page if it's not the default '/api/auth/signin'
+    // pages: {
+    //   signIn: '/login', // Example, adjust if your login page is different
+    // },
   }
 );
 
-// Middleware'in hangi yollarda çalışacağını belirtin
+// Middleware will run for these paths
 export const config = {
   matcher: ["/login", "/register", "/add-boat", "/my-boats", "/profile/:path*"],
 };

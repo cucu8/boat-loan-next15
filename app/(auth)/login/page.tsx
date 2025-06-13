@@ -52,6 +52,7 @@ const Login = () => {
           type="email"
           name="email"
           title="Email"
+          placeholder="Email"
         />
 
         {/* Şifre */}
@@ -61,6 +62,7 @@ const Login = () => {
           type="password"
           name="password"
           title="Şifre"
+          placeholder="Şifre"
         />
 
         <button

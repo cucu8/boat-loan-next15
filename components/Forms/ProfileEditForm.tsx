@@ -24,8 +24,6 @@ const ProfileEditForm = ({ user, token }: EditUserFormProps) => {
     phoneNumber: "",
   });
 
-  console.log(user);
-
   useEffect(() => {
     if (user) {
       setForm({
@@ -33,7 +31,7 @@ const ProfileEditForm = ({ user, token }: EditUserFormProps) => {
         phoneNumber: user.phoneNumber,
       });
     }
-  }, []);
+  }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

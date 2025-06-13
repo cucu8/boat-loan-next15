@@ -1,6 +1,8 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import ProfileEditForm from "@/components/Forms/ProfileEditForm";
+import PasswordEditForm from "@/components/Forms/PasswordEditForm";
+import Container from "@/components/Container";
 
 const Profile = async () => {
   const session = await getServerSession(authOptions);
@@ -21,7 +23,12 @@ const Profile = async () => {
 
     const user: any = await res.json();
 
-    return <ProfileEditForm token={token ?? ""} user={user} />;
+    return (
+      <Container>
+        <ProfileEditForm token={token ?? ""} user={user} />
+        <PasswordEditForm token={token ?? ""} id={id ?? 0} />
+      </Container>
+    );
   } catch (error: any) {
     console.log(error);
   }

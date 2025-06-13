@@ -5,7 +5,7 @@ import { IdParams } from "@/models";
 
 export default async function BoatDetailPage({ params }: IdParams) {
   const { id } = await params;
-  const res = await fetch(`http://localhost:3000/api/boats/${id}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boats/${id}`);
   const boat: BoatCardModel = await res.json();
 
   return (
@@ -18,9 +18,7 @@ export default async function BoatDetailPage({ params }: IdParams) {
           width="w-full"
         />
 
-        {/* İçerik */}
         <div className="p-6 flex flex-col gap-4">
-          {/* Başlık ve Fiyat */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
             <h1 className="text-3xl font-bold">{boat.name}</h1>
             <span className="text-xl font-semibold bg-sand text-black px-4 py-1 rounded-lg shadow">

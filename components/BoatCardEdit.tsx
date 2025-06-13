@@ -31,7 +31,7 @@ export default function BoatCardEdit({ boat }: { boat: BoatCardModel }) {
             </span>
           </p>
           <p>
-            <strong>Telefon Numarası</strong>
+            <strong>Telefon Numarası: </strong>
             <span>{boat.ownerPhoneNumber}</span>
           </p>
         </div>
