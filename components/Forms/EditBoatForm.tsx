@@ -9,6 +9,7 @@ import TextInput from "@/elements/TextInput";
 import SelectBox from "@/elements/SelectBox";
 import Image from "next/image";
 import { X } from "lucide-react";
+import Switch from "@/elements/Switch";
 
 interface EditBoatFormProps {
   ownerId: number;
@@ -253,6 +254,7 @@ const EditBoatForm = ({
           type="text"
           name="name"
           title="Tekne Adı"
+          placeholder="Tekne Adı"
         />
 
         {/* Açıklama */}
@@ -277,6 +279,7 @@ const EditBoatForm = ({
           name="pricePerHour"
           title="Saatlik Ücret (₺)"
           minValue={0}
+          placeholder="Saatlik Ücret"
         />
 
         <TextInput
@@ -286,24 +289,14 @@ const EditBoatForm = ({
           name="capacity"
           title="Kapasite"
           minValue={0}
+          placeholder="Kapasite"
         />
 
         <div className="flex items-center justify-between gap-2">
           <label htmlFor="isAvailable" className="text-lg">
             Müsait mi?
           </label>
-          <div
-            className={`relative inline-flex items-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out ${
-              isAvailable ? "bg-green-700" : "bg-red-700"
-            } w-12 h-6`}
-            onClick={() => setIsAvailable(!isAvailable)}
-          >
-            <span
-              className={`inline-block w-5 h-5 transform rounded-full bg-white shadow-lg transition-transform duration-200 ease-in-out ${
-                isAvailable ? "translate-x-6" : "translate-x-1"
-              }`}
-            />
-          </div>
+          <Switch setValue={setIsAvailable} value={isAvailable} />
         </div>
 
         {/* Konum Seçiciler */}

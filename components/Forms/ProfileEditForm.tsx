@@ -85,6 +85,7 @@ const ProfileEditForm = ({ user, token }: EditUserFormProps) => {
           type="email" // Use type="email" for email validation
           name="email"
           title="E-posta"
+          placeholder="Email"
         />
 
         {/* Phone Number */}
@@ -94,6 +95,7 @@ const ProfileEditForm = ({ user, token }: EditUserFormProps) => {
           type="tel" // Use type="tel" for phone numbers
           name="phoneNumber"
           title="Telefon Numarası"
+          placeholder="Telefon Numarası"
         />
 
         <button

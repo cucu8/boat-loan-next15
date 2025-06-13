@@ -7,6 +7,7 @@ interface TextInputProps {
   type?: string;
   name: string;
   minValue?: number;
+  placeholder: string;
 }
 
 const TextInput = ({
@@ -16,6 +17,7 @@ const TextInput = ({
   type = "text",
   name,
   minValue = 0,
+  placeholder,
 }: TextInputProps) => {
   return (
     <div className="flex flex-col gap-1">
@@ -23,6 +25,7 @@ const TextInput = ({
         {title}
       </label>
       <input
+        placeholder={placeholder}
         min={minValue}
         type={type}
         name={name}
