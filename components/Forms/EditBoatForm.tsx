@@ -299,7 +299,6 @@ const EditBoatForm = ({
           <Switch setValue={setIsAvailable} value={isAvailable} />
         </div>
 
-        {/* Konum Seçiciler */}
         <SelectBox
           handleSelectId={handleSelectCountryId}
           selectedCountryId={selectedCountryId}
@@ -321,7 +320,6 @@ const EditBoatForm = ({
           title="İlçe Seçiniz"
         />
 
-        {/* Resim Yükleme ve Önizleme */}
         <div className="flex flex-col gap-2">
           <label
             htmlFor="file-upload"

@@ -9,7 +9,7 @@ const Switch: React.FC<SwitchProps> = ({ value, setValue }) => {
   const toggleSwitch = () => {
     setValue(!value);
   };
-  console.log(value);
+
   return (
     <button
       className={`relative inline-flex items-center cursor-pointer rounded-full transition-colors duration-200 ease-in-out ${

@@ -51,7 +51,7 @@
   color: var(--color-text-sky-400);
 }
 .text-sky-500 {
-  color: var(--color-text-sky-500);
+  color: var(--color-sky-500);
 }
 .text-mint-400 {
   color: var(--color-text-mint-400);
@@ -63,7 +63,7 @@
   color: var(--color-text-sand-400);
 }
 .text-navy {
-  color: var(--color-text-navy-700);
+  color: var(--color-navy-700);
 }
 .text-neutral {
   color: white;
@@ -71,4 +71,23 @@
 
 .container {
   @apply flex flex-wrap gap-4 w-full justify-center p-4;
+}
+
+.boats-spinner-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--color-sky-500); /* Tailwind: indigo-600 */
+  animation: grow-shrink 1.4s ease-in-out infinite;
+}
+
+@keyframes grow-shrink {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
 }

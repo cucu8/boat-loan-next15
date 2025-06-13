@@ -1,18 +1,13 @@
-import BoatCard from "@/components/BoatCard";
-import { BoatCardModel } from "../models";
 import Container from "@/components/Container";
+import GetAllBoats from "@/components/GetAllBoats";
 
 export default async function Home() {
-  const res = await fetch("http://localhost:3000/api/boats");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boats`);
   const boats = await res.json();
 
   return (
     <Container>
-      {boats &&
-        boats.length > 0 &&
-        boats.map((boat: BoatCardModel) => (
-          <BoatCard key={boat.id} boat={boat} />
-        ))}
+      <GetAllBoats boats={boats} />
     </Container>
   );
 }
