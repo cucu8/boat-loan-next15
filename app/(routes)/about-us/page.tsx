@@ -1,5 +1,13 @@
 import Container from "@/components/Container";
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Hakkımızda | Tekne Kiralama Hizmetleri",
+  description:
+    "Tekne kiralama şirketimiz hakkında detaylı bilgi, vizyonumuz ve ekibimiz.",
+  keywords: "hakkımızda, tekne kiralama şirketi, misyon, vizyon",
+};
 
 const AboutUs = () => {
   return (

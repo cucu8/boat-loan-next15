@@ -26,10 +26,12 @@ const GetAllBoats = ({ boats }: GetAllBoatsProps) => {
 
   const getBoats = async (queriesProps?: AllBoatsQueries) => {
     setIsLoading(true);
+
     const url = buildUrlWithQueryParams(
       `${process.env.NEXT_PUBLIC_API_URL}/boats`,
       queriesProps ?? queries
     );
+
     try {
       const res = await fetch(url);
       if (!res.ok) {
@@ -52,6 +54,7 @@ const GetAllBoats = ({ boats }: GetAllBoatsProps) => {
       city: "",
       disctrict: "",
     });
+
     getBoats({
       capacity: "",
       price: "",

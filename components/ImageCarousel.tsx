@@ -28,7 +28,7 @@ const ImageCarousel = ({
           <img src={item.base64Image} />
           <Image
             src={item.base64Image}
-            alt={`Image ${idx}`}
+            alt={`Boat Image ${idx}`}
             fill
             className="object-cover rounded-t-2xl"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
