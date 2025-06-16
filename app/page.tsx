@@ -7,6 +7,8 @@ export default async function Home() {
 
   return (
     <Container>
+      File
+      <input type="file" />
       <GetAllBoats boats={boats} />
     </Container>
   );
