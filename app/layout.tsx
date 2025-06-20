@@ -82,6 +82,12 @@ export default async function RootLayout({
 
   return (
     <html lang="tr" suppressHydrationWarning>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} h-screen flex flex-col overflow-hidden`}
       >

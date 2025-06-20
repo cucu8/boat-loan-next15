@@ -2,6 +2,10 @@
 @import "tailwindcss";
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+.font-dancing {
+  font-family: "Dancing Script", cursive;
+}
+
 @theme {
   --color-sky-400: oklch(0.85 0.09 230);
   --color-sky-500: oklch(0.75 0.12 230);

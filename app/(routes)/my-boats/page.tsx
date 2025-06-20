@@ -5,16 +5,16 @@ import { getServerSession } from "next-auth";
 import Container from "@/components/Container";
 import Link from "next/link";
 import BoatCardEdit from "@/components/BoatCardEdit";
+import ErrorComponent from "@/components/Error";
+import { withFetch } from "@/libs";
 
 const MyBoats = async () => {
   const session = await getServerSession(authOptions);
 
-  const res = await fetch(
-    `http://localhost:7229/api/boats/user/${session?.user?.id}`,
-    { cache: "no-store" }
+  const { data: boats, error } = await withFetch<BoatCardModel[]>(
+    `${process.env.NEXT_PUBLIC_API_URL}/boats/user/${session?.user?.id}`,
+    []
   );
-
-  const boats = await res.json();
 
   if (boats.length === 0) {
     return (
@@ -29,9 +29,15 @@ const MyBoats = async () => {
 
   return (
     <Container extraClasses="container mx-auto">
-      {boats.map((boat: BoatCardModel) => (
-        <BoatCardEdit key={boat.id} boat={boat} />
-      ))}
+      {error ? (
+        <p className="text-red-500 text-center">
+          <ErrorComponent />
+        </p>
+      ) : (
+        boats.map((boat: BoatCardModel) => (
+          <BoatCardEdit key={boat.id} boat={boat} />
+        ))
+      )}
     </Container>
   );
 };

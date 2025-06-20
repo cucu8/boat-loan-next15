@@ -1,5 +1,6 @@
 import CryptoJS from "crypto-js";
 import https from "https";
+import { JSX } from "react";
 const SECRET_KEY = process.env.NEXT_PUBLIC_ENCRYPT_SECRET;
 
 // Self-signed sertifikaları kabul eden HTTPS agent
@@ -29,4 +30,27 @@ export function buildUrlWithQueryParams(baseUrl: string, params: any) {
     }
   }
   return url.toString();
+}
+
+// lib/withFetch.ts
+export async function withFetch<T>(
+  url: string,
+  fallback: T,
+  token?: string
+): Promise<{ data: T; error: string | null }> {
+  try {
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+
+    const data = (await res.json()) as T;
+    return { data, error: null };
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return { data: fallback, error: (error as Error).message };
+  }
 }

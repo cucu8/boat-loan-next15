@@ -8,7 +8,7 @@ import { Menu } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react"; // Import useSession and signOut
 import LogoutButton from "./LogoutButton";
-import Image from "next/image";
+import LogoComponent from "./LogoComponent";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,8 +18,8 @@ export default function Navbar() {
     <nav className="bg-navy text-neutral border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 justify-between md:justify-start space-x-8 items-center">
-          <div>My brand</div>
-          {/* Desktop Menu */}
+          <LogoComponent />
+
           <div className="hidden md:flex space-x-8 items-center w-full">
             {navbarMenuItems
               .filter((item) => session || !privateRoutes.includes(item.href))

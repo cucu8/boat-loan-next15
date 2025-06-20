@@ -169,9 +169,11 @@ const EditBoatForm = ({
         toast.success("Tekne başarıyla güncellendi!");
         router.push(`/my-boats`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Tekne güncellenirken hata oluştu:", error);
-      toast.error("Tekne güncellenirken bir hata oluştu.");
+      toast.error(
+        error?.response?.data?.message || "Tekne güncellenirken hata oluştu."
+      );
     }
   };
 
@@ -181,9 +183,11 @@ const EditBoatForm = ({
         `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/cities/${id}`
       );
       if (res.status === 200) setCities(res.data);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      toast.error("Şehirler çekilirken hata oluştu.");
+      toast.error(
+        error?.response?.data?.message || "Şehirler çekilirken hata oluştu."
+      );
     }
   };
 

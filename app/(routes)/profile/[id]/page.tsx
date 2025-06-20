@@ -3,6 +3,9 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import ProfileEditForm from "@/components/Forms/ProfileEditForm";
 import PasswordEditForm from "@/components/Forms/PasswordEditForm";
 import Container from "@/components/Container";
+import { UserModel } from "@/models";
+import { withFetch } from "@/libs";
+import ErrorComponent from "@/components/Error";
 
 const Profile = async () => {
   const session = await getServerSession(authOptions);
@@ -10,28 +13,26 @@ const Profile = async () => {
   const token = session?.accessToken;
   const id = session?.user?.id;
 
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        cache: "no-store",
-      }
-    );
+  const { data: user, error } = await withFetch<UserModel>(
+    `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/${id}`,
+    {} as UserModel,
+    token
+  );
 
-    const user: any = await res.json();
-
-    return (
-      <Container>
-        <ProfileEditForm token={token ?? ""} user={user} />
-        <PasswordEditForm token={token ?? ""} id={id ?? 0} />
-      </Container>
-    );
-  } catch (error: any) {
-    console.log(error);
-  }
+  return (
+    <Container>
+      {error ? (
+        <p className="text-red-500 text-center">
+          <ErrorComponent />
+        </p>
+      ) : (
+        <>
+          <ProfileEditForm token={token ?? ""} user={user} />
+          <PasswordEditForm token={token ?? ""} id={id ?? 0} />
+        </>
+      )}
+    </Container>
+  );
 };
 
 export default Profile;

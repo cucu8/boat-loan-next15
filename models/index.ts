@@ -62,3 +62,11 @@ export interface AllBoatsQueries {
   city: string;
   disctrict: string;
 }
+
+export interface UserModel {
+  id: number;
+  email: string;
+  name: string;
+  userType: number;
+  phoneNumber?: string;
+}
