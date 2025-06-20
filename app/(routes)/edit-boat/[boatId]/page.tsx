@@ -1,5 +1,5 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import EditBoatForm from "@/components/Forms/EditBoatForm";
+import { authOptions } from "@/libs/auth";
 import { BoatCardModel } from "@/models";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

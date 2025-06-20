@@ -1,9 +1,8 @@
 import { httpsAgent } from "@/libs";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import { IdParams } from "@/models";
 
-export async function GET(req: NextRequest, { params }: IdParams) {
+export async function GET(req: NextRequest, { params }: any) {
   const { id } = await params;
   try {
     const { data } = await axios.get(
@@ -20,7 +19,7 @@ export async function GET(req: NextRequest, { params }: IdParams) {
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message },
-      { status: error.status || 500 }
+      { status: error.status ?? 500 }
     );
   }
 }

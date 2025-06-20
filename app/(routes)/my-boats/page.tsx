@@ -1,5 +1,4 @@
 import React from "react";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { BoatCardModel } from "@/models";
 import { getServerSession } from "next-auth";
 import Container from "@/components/Container";
@@ -7,6 +6,7 @@ import Link from "next/link";
 import BoatCardEdit from "@/components/BoatCardEdit";
 import ErrorComponent from "@/components/Error";
 import { withFetch } from "@/libs";
+import { authOptions } from "@/libs/auth";
 
 const MyBoats = async () => {
   const session = await getServerSession(authOptions);

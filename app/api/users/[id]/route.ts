@@ -1,11 +1,10 @@
 import { httpsAgent } from "@/libs";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import { IdParams } from "@/models";
 
 export const runtime = "nodejs";
 
-export async function GET(req: NextRequest, { params }: IdParams) {
+export async function GET(req: NextRequest, { params }: any) {
   const { id } = await params;
   const incomingAuthorization = req.headers.get("authorization");
 

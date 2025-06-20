@@ -2,10 +2,7 @@ import { decrypt, httpsAgent } from "@/libs";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(req: NextRequest, { params }: any) {
   try {
     const { id } = params;
     const body = await req.json();

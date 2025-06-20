@@ -1,11 +1,11 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import ProfileEditForm from "@/components/Forms/ProfileEditForm";
 import PasswordEditForm from "@/components/Forms/PasswordEditForm";
 import Container from "@/components/Container";
 import { UserModel } from "@/models";
 import { withFetch } from "@/libs";
 import ErrorComponent from "@/components/Error";
+import { authOptions } from "@/libs/auth";
 
 const Profile = async () => {
   const session = await getServerSession(authOptions);

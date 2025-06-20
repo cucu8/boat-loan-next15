@@ -2,10 +2,7 @@ import { httpsAgent } from "@/libs";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: number } }
-) {
+export async function GET(req: NextRequest, { params }: any) {
   const { id } = await params;
 
   try {
