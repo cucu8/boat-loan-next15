@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Container from "./Container";
 import { AllBoatsQueries, BoatCardModel } from "@/models";
 import BoatCard from "./BoatCard";

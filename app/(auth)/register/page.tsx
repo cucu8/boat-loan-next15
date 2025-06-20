@@ -5,7 +5,7 @@ import Container from "@/components/Container";
 import axios from "axios";
 import toast from "react-hot-toast";
 import TextInput from "@/elements/TextInput";
-import { decrypt, encrypt } from "@/libs";
+import { encrypt } from "@/libs";
 
 const Register = () => {
   const router = useRouter();
@@ -58,6 +58,7 @@ const Register = () => {
           type="email"
           name="email"
           title="Email"
+          placeholder="Email adresinizi girin"
         />
 
         {/* Telefon */}
@@ -67,6 +68,7 @@ const Register = () => {
           type="tel"
           name="phoneNumber"
           title="Telefon"
+          placeholder="Telefon numaranızı girin"
         />
 
         {/* Kullanıcı Adı */}
@@ -76,6 +78,7 @@ const Register = () => {
           type="text"
           name="name"
           title="Kullanıcı Adı"
+          placeholder="Kullanıcı adınızı girin"
         />
 
         {/* Şifre */}
@@ -85,6 +88,7 @@ const Register = () => {
           type="password"
           name="password"
           title="Şifre"
+          placeholder="Şifrenizi girin"
         />
 
         {/* Şifre Tekrar */}
@@ -94,6 +98,7 @@ const Register = () => {
           type="password"
           name="confirmPassword"
           title="Şifre Tekrar"
+          placeholder="Şifrenizi tekrar girin"
         />
 
         <button

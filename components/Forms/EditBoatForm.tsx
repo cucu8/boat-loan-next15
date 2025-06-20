@@ -46,9 +46,6 @@ const EditBoatForm = ({
     { id: number; base64Image: string }[]
   >([]);
 
-  const [imagesToDelete, setImagesToDelete] = useState<number[]>([]);
-  // Silinecek resimlerin ID'leri
-
   // Yeni eklenecek resim dosyaları
   const [newImages, setNewImages] = useState<File[]>([]);
 
@@ -99,8 +96,6 @@ const EditBoatForm = ({
       prevImages.filter((img) => img.id !== imageId)
     );
 
-    // Silinecekler listesine ekle
-    setImagesToDelete((prevIds) => [...prevIds, imageId]);
     setForm((prevForm) => ({
       ...prevForm,
       imagesToDelete: [...prevForm.imagesToDelete, imageId],

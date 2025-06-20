@@ -1,9 +1,6 @@
-import type { Metadata, ResolvingMetadata } from "next"; // ResolvingMetadata'yi ekledik
 import Container from "@/components/Container";
 import ImageCarousel from "@/components/ImageCarousel";
 import { BoatCardModel } from "@/models";
-import { IdParams } from "@/models";
-// notFound fonksiyonunu hata durumlarında kullanmak için ekliyoruz
 import { notFound } from "next/navigation";
 
 // Veri çekme fonksiyonu sayfanın dışında tanımlanmış, bu harika!
@@ -28,16 +25,7 @@ async function getBoatData(id: string): Promise<BoatCardModel | null> {
   }
 }
 
-// Props tipini generateMetadata için de kullanacağız
-type Props = {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined }; // Bu olmasa da eklemek iyi bir pratik
-};
-
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata // Üst layout'tan gelen metadata'ya erişim sağlar
-): Promise<Metadata> {
+export async function generateMetadata({ params }: any) {
   const { id } = params;
   const boat = await getBoatData(id);
 
@@ -55,7 +43,7 @@ export async function generateMetadata(
     };
   }
 
-  const previousImages = (await parent).openGraph?.images || [];
+  //const previousImages = (await parent).openGraph?.images || [];
 
   return {
     title: `${boat.name} Kiralama - ${boat.districtName} | ${boat.pricePerHour}₺/saat | Tekne Kiralama`,
@@ -128,7 +116,7 @@ export async function generateMetadata(
   };
 }
 
-export default async function BoatDetailPage({ params }: IdParams) {
+export default async function BoatDetailPage({ params }: any) {
   const { id } = params;
   const boat = await getBoatData(id);
   if (!boat) {

@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -16,6 +16,13 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const dancingScript = Dancing_Script({
+  weight: ["400"], // Specify the weights you need (e.g., '400', '700')
+  subsets: ["latin"], // Specify the subsets you need
+  variable: "--font-dancing-script", // Assign a CSS variable
+  display: "swap", // This is default and recommended
 });
 
 export const metadata: Metadata = {
@@ -82,14 +89,8 @@ export default async function RootLayout({
 
   return (
     <html lang="tr" suppressHydrationWarning>
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} h-screen flex flex-col overflow-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} ${dancingScript.variable} h-screen flex flex-col overflow-hidden`}
       >
         <NextAuthProvider session={session}>
           <div className="shrink-0">
