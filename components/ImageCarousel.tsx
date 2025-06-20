@@ -25,7 +25,6 @@ const ImageCarousel = ({
     >
       {images.map((item, idx) => (
         <div key={idx} className={`relative ${width} ${height}`}>
-          <img src={item.base64Image} />
           <Image
             src={item.base64Image}
             alt={`Boat Image ${idx}`}

@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
-import { Delete, Pencil, Trash2 } from "lucide-react";
-import toast from "react-hot-toast";
+import { Pencil, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import Modal from "@/elements/Modal";
 import DeleteBoatConfirmation from "./modalChildren/DeleteBoatConfirmation";
-import { useRouter } from "next/navigation";
 interface EditButtonGroupProps {
   id: number;
   name: string;
@@ -38,17 +37,13 @@ const EditButtonGroup = ({ id, name }: EditButtonGroupProps) => {
         <Trash2 className="text-red-400 w-5 h-5" />
       </button>
 
-      <Modal
-        isOpen={isOpenDeleteModal}
-        onClose={() => setIsDeleteModal(false)}
-        children={
-          <DeleteBoatConfirmation
-            name={name}
-            onClose={() => setIsDeleteModal(false)}
-            id={id}
-          />
-        }
-      />
+      <Modal isOpen={isOpenDeleteModal} onClose={() => setIsDeleteModal(false)}>
+        <DeleteBoatConfirmation
+          name={name}
+          onClose={() => setIsDeleteModal(false)}
+          id={id}
+        />
+      </Modal>
     </div>
   );
 };

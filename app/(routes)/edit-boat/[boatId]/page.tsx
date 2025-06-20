@@ -2,6 +2,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import EditBoatForm from "@/components/Forms/EditBoatForm";
 import { BoatCardModel } from "@/models";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export default async function EditBoatPage({
   params,
@@ -18,12 +19,17 @@ export default async function EditBoatPage({
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boats/${boatId}`);
   const boat: BoatCardModel = await res.json();
 
+  // Check if session and accessToken exist before rendering
+  if (!session || !session.user || !session.accessToken) {
+    redirect("/login");
+  }
+
   return (
     <div>
       <EditBoatForm
         ownerId={Number(session?.user?.id)}
         countries={coutries}
-        token={session?.accessToken!}
+        token={session?.accessToken}
         boat={boat}
       />
     </div>

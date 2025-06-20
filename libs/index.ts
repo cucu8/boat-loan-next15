@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 import https from "https";
-import { JSX } from "react";
+
 const SECRET_KEY = process.env.NEXT_PUBLIC_ENCRYPT_SECRET;
 
 // Self-signed sertifikaları kabul eden HTTPS agent
@@ -32,7 +32,6 @@ export function buildUrlWithQueryParams(baseUrl: string, params: any) {
   return url.toString();
 }
 
-// lib/withFetch.ts
 export async function withFetch<T>(
   url: string,
   fallback: T,

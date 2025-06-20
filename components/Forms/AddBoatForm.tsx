@@ -121,8 +121,8 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
       const res = await axios.get(`http://localhost:3000/api/cities/${id}`);
 
       if (res.status === 200) setCities(res.data);
-    } catch (error) {
-      toast.error("Bir hata oluştu.");
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Bir hata oluştu.");
     }
   };
 
@@ -159,6 +159,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
           type="text"
           name="name"
           title="Tekne Adı"
+          placeholder="Tekne adını girin"
         />
 
         {/* Açıklama */}
@@ -183,6 +184,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
           name="pricePerHour"
           title="Saatlik Ücret (₺)"
           minValue={0}
+          placeholder="Saatlik ücreti girin"
         />
 
         <TextInput
@@ -192,6 +194,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
           name="capacity"
           title="Kapasite"
           minValue={0}
+          placeholder="Kapasiteyi girin"
         />
 
         <SelectBox

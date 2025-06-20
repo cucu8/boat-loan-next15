@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Container from "@/components/Container";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -17,8 +16,6 @@ interface EditUserFormProps {
 }
 
 const ProfileEditForm = ({ user, token }: EditUserFormProps) => {
-  const router = useRouter();
-
   const [form, setForm] = useState<UpdateUserFormData>({
     email: "",
     phoneNumber: "",

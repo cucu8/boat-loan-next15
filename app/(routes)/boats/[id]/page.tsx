@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from "next"; // ResolvingMetadata'yi ekledik
+import type { Metadata } from "next"; // ResolvingMetadata'yi ekledik
 import Container from "@/components/Container";
 import ImageCarousel from "@/components/ImageCarousel";
 import { BoatCardModel } from "@/models";
@@ -34,10 +34,7 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined }; // Bu olmasa da eklemek iyi bir pratik
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata // Üst layout'tan gelen metadata'ya erişim sağlar
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
   const boat = await getBoatData(id);
 
@@ -55,7 +52,7 @@ export async function generateMetadata(
     };
   }
 
-  const previousImages = (await parent).openGraph?.images || [];
+  //const previousImages = (await parent).openGraph?.images || [];
 
   return {
     title: `${boat.name} Kiralama - ${boat.districtName} | ${boat.pricePerHour}₺/saat | Tekne Kiralama`,

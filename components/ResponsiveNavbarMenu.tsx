@@ -3,7 +3,7 @@ import React from "react";
 import { ThemeChanger } from "./ThemeToggle";
 import { navbarMenuItems } from "@/constants";
 import NavbarMenuItem from "./NavbarMenuItem";
-import { signOut, useSession } from "next-auth/react"; // Import signOut and Session type
+import { useSession } from "next-auth/react"; // Import signOut and Session type
 import LogoutButton from "./LogoutButton";
 
 const ResponsiveNavbarMenu: React.FC = () => {

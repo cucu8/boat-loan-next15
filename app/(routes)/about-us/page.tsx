@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 const AboutUs = () => {
   return (
     <Container>
-      Tekne kiralama platformumuz, Türkiye'nin dört bir yanındaki tekne
+      Tekne kiralama platformumuz, Türkiye&apos;nin dört bir yanındaki tekne
       sahiplerini ve deniz tutkunlarını bir araya getiren yepyeni bir başlangıç.
       Amacımız, tekne kiralamayı herkes için daha kolay, erişilebilir ve
       ücretsiz hale getirmek. Platformumuzda, tekne sahipleri teknelerini
       tamamen ücretsiz olarak listeleyebilirler. İster özel kullanımınız için
-      bir tekneniz olsun, ister ticari amaçla kiralıyor olun, Türkiye'nin
+      bir tekneniz olsun, ister ticari amaçla kiralıyor olun, Türkiye&apos;nin
       herhangi bir il ve ilçesinde teknenizi bizimle paylaşabilirsiniz. Bu
       sayede, deniz severler için geniş bir yelpazede tekne seçenekleri
       sunarken, tekne sahiplerinin de teknelerini daha geniş kitlelere
