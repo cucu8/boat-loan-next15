@@ -118,7 +118,9 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
 
   const getCitiesByCountryId = async (id: number) => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/cities/${id}`);
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/cities/${id}`
+      );
 
       if (res.status === 200) setCities(res.data);
     } catch (error: any) {
@@ -128,7 +130,9 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
 
   const getDistrictsByCityId = async (id: number) => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/districts/${id}`);
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/districts/${id}`
+      );
 
       if (res.status === 200) setDistricts(res.data);
     } catch (error) {

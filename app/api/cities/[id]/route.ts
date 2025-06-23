@@ -6,12 +6,15 @@ export async function GET(req: NextRequest, { params }: any) {
   const { id } = await params;
 
   try {
-    const { data } = await axios.get(`http://localhost:7229/api/Cities/${id}`, {
-      httpsAgent,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/Cities/${id}`,
+      {
+        httpsAgent,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return NextResponse.json(data, { status: 200 });
   } catch (error: any) {

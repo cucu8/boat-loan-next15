@@ -14,10 +14,11 @@ interface SelectBoxProps {
 const SelectBox = ({
   selectedCountryId,
   handleSelectId,
-  selectData,
+  selectData = [],
   title,
   disabled,
 }: SelectBoxProps) => {
+  const isValidArray = Array.isArray(selectData);
   return (
     <select
       disabled={disabled}
@@ -26,11 +27,12 @@ const SelectBox = ({
       className="rounded-md px-3 py-[10px] bg-neutral-100 text-black focus:outline-none focus:ring-2 focus:ring-sky-500"
     >
       <option value="">{title}</option>
-      {selectData.map((item) => (
-        <option key={item.id} value={item.id}>
-          {item.name}
-        </option>
-      ))}
+      {isValidArray &&
+        selectData.map((item) => (
+          <option key={item.id} value={item.id}>
+            {item.name}
+          </option>
+        ))}
     </select>
   );
 };

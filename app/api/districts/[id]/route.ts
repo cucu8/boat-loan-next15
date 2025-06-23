@@ -7,7 +7,7 @@ export async function GET(req: NextRequest, { params }: any) {
 
   try {
     const { data } = await axios.get(
-      `http://localhost:7229/api/Districts/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/Districts/${id}`,
       {
         httpsAgent,
         headers: {
