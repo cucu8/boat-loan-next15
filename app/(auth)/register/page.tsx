@@ -23,23 +23,38 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await axios.post("http://localhost:3000/api/users/register", {
-      ...form,
-      password: encrypt(form.password),
-      confirmPassword: encrypt(form.confirmPassword),
-      userType: 0,
-    });
 
-    if (res.status === 200) {
-      setForm({
-        email: "",
-        phoneNumber: "",
-        name: "",
-        password: "",
-        confirmPassword: "",
+    try {
+      const res = await axios.post("http://localhost:3000/api/users/register", {
+        ...form,
+        password: encrypt(form.password),
+        confirmPassword: encrypt(form.confirmPassword),
+        userType: 0,
       });
-      toast.success("Kayıt başarılı!");
-      router.push("/login");
+
+      if (res.status === 200) {
+        setForm({
+          email: "",
+          phoneNumber: "",
+          name: "",
+          password: "",
+          confirmPassword: "",
+        });
+        toast.success("Kayıt başarılı!");
+        router.push("/login");
+      }
+    } catch (error: any) {
+      console.error("Registration error:", error);
+
+      if (error.message?.includes("Encryption secret key")) {
+        toast.error(
+          "Sistem yapılandırma hatası. Lütfen daha sonra tekrar deneyin."
+        );
+      } else if (error.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.");
+      }
     }
   };
 
