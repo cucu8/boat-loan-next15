@@ -25,15 +25,12 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/users/register`,
-        {
-          ...form,
-          password: encrypt(form.password),
-          confirmPassword: encrypt(form.confirmPassword),
-          userType: 0,
-        }
-      );
+      const res = await axios.post(`http://localhost:3000/api/users/register`, {
+        ...form,
+        password: encrypt(form.password),
+        confirmPassword: encrypt(form.confirmPassword),
+        userType: 0,
+      });
 
       if (res.status === 200) {
         setForm({
