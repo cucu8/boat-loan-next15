@@ -10,14 +10,18 @@ export async function POST(req: NextRequest) {
     body.password = decryptedPassword;
     body.confirmPassword = decryptedConfirmPassword;
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    //const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    const { data } = await axios.post(`${apiUrl}/users`, body, {
-      httpsAgent,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const { data } = await axios.post(
+      `https://api.teknekiralagez.com/api/users`,
+      body,
+      {
+        httpsAgent,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
