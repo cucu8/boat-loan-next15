@@ -1,6 +1,11 @@
 import { decrypt, httpsAgent } from "@/libs";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
+import { cors } from "@/libs";
+
+export async function OPTIONS() {
+  return cors();
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,8 +28,14 @@ export async function POST(req: NextRequest) {
       }
     );
 
-    return NextResponse.json(data, { status: 200 });
+    const response = NextResponse.json(data, { status: 200 });
+    response.headers.set("Access-Control-Allow-Origin", "*");
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const response = NextResponse.json(
+      { error: error.message },
+      { status: 500 }
+    );
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    return response;
   }
 }
