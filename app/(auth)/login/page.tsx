@@ -16,24 +16,29 @@ const Login = () => {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const res = await signIn("credentials", {
-      email: form.email,
-      password: encrypt(form.password),
-      redirect: false,
-    });
-
-    if (res?.ok) {
-      toast.success("Giriş başarılı!");
-      router.push("/");
-    } else {
-      toast.error("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
+    setLoading(true);
+    try {
+      const res = await signIn("credentials", {
+        email: form.email,
+        password: encrypt(form.password),
+        redirect: false,
+      });
+      if (res?.ok) {
+        toast.success("Giriş başarılı!");
+        router.push("/");
+      } else {
+        toast.error("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,8 +73,9 @@ const Login = () => {
         <button
           type="submit"
           className="bg-sky-500 hover:bg-sky-400 transition-colors text-white font-semibold py-2 rounded-lg"
+          disabled={loading}
         >
-          Giriş Yap
+          {loading ? "Yükleniyor..." : "Giriş Yap"}
         </button>
       </form>
     </Container>

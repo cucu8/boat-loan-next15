@@ -29,6 +29,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
     []
   );
   const [selectedDistrictId, setSelectedDistrictId] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState<AddBoatFormData>({
     name: "",
@@ -77,6 +78,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("Name", form.name);
@@ -113,6 +115,8 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
       }
     } catch (error: any) {
       toast.error(error?.response?.statusText || "Bir hata oluştu.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -268,9 +272,10 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
         </div>
         <button
           type="submit"
-          className="bg-sky-500 cursor-pointer hover:bg-sky-400 transition-colors text-white font-semibold py-2 rounded-lg"
+          className="bg-sky-500 hover:bg-sky-400 transition-colors text-white font-semibold py-2 rounded-lg"
+          disabled={loading}
         >
-          Ekle
+          {loading ? "Yükleniyor..." : "Tekne Ekle"}
         </button>
       </form>
     </Container>

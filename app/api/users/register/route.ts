@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     const response = NextResponse.json(data, { status: 200 });
     response.headers.set("Access-Control-Allow-Origin", "*");
 
-    return response; // ✅ EKSİK OLAN SATIR
+    return response;
   } catch (error: any) {
     console.error("API error:", error?.response?.data || error.toString());
 

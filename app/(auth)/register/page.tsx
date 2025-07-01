@@ -16,6 +16,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,7 +24,7 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const res = await axios.post(`/api/users/register`, {
         ...form,
@@ -31,7 +32,6 @@ const Register = () => {
         confirmPassword: encrypt(form.confirmPassword),
         userType: 0,
       });
-
       if (res.status === 200) {
         setForm({
           email: "",
@@ -45,7 +45,6 @@ const Register = () => {
       }
     } catch (error: any) {
       console.error("Registration error:", error);
-
       if (error.message?.includes("Encryption secret key")) {
         toast.error(
           "Sistem yapılandırma hatası. Lütfen daha sonra tekrar deneyin."
@@ -55,6 +54,8 @@ const Register = () => {
       } else {
         toast.error("Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -119,8 +120,9 @@ const Register = () => {
         <button
           type="submit"
           className="bg-sky-500 hover:bg-sky-400 transition-colors text-white font-semibold py-2 rounded-lg"
+          disabled={loading}
         >
-          Kaydol
+          {loading ? "Yükleniyor..." : "Kaydol"}
         </button>
       </form>
     </Container>
