@@ -115,7 +115,8 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
         router.push("/");
       }
     } catch (error: any) {
-      toast.error(error?.response?.statusText || "Bir hata oluştu.");
+      toast.error(JSON.stringify(error));
+      //toast.error(error?.response?.statusText || "Bir hata oluştu.");
     } finally {
       setLoading(false);
     }
