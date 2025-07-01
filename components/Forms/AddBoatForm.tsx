@@ -104,7 +104,6 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
         }
