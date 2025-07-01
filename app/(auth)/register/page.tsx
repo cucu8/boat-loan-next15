@@ -6,6 +6,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import TextInput from "@/elements/TextInput";
 import { encrypt } from "@/libs";
+import Spinner from "@/elements/Spinner";
 
 const Register = () => {
   const router = useRouter();
@@ -122,7 +123,7 @@ const Register = () => {
           className="bg-sky-500 hover:bg-sky-400 transition-colors text-white font-semibold py-2 rounded-lg"
           disabled={loading}
         >
-          {loading ? "Yükleniyor..." : "Kaydol"}
+          {loading ? <Spinner /> : "Kaydol"}
         </button>
       </form>
     </Container>

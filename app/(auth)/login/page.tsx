@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { encrypt } from "@/libs";
 import Container from "@/components/Container";
 import toast from "react-hot-toast";
 import TextInput from "@/elements/TextInput";
-import { encrypt } from "@/libs";
+import Spinner from "@/elements/Spinner";
 
 const Login = () => {
   const router = useRouter();
@@ -41,7 +42,7 @@ const Login = () => {
       setLoading(false);
     }
   };
-
+  console.log(loading);
   return (
     <Container>
       <form
@@ -75,7 +76,7 @@ const Login = () => {
           className="bg-sky-500 hover:bg-sky-400 transition-colors text-white font-semibold py-2 rounded-lg"
           disabled={loading}
         >
-          {loading ? "Yükleniyor..." : "Giriş Yap"}
+          {loading ? <Spinner /> : "Giriş Yap"}
         </button>
       </form>
     </Container>

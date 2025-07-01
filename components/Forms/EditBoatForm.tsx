@@ -10,6 +10,7 @@ import SelectBox from "@/elements/SelectBox";
 import Image from "next/image";
 import { X } from "lucide-react";
 import Switch from "@/elements/Switch";
+import Spinner from "@/elements/Spinner";
 
 interface EditBoatFormProps {
   ownerId: number;
@@ -61,6 +62,8 @@ const EditBoatForm = ({
     newImages: [], // Başlangıçta boş
     imagesToDelete: [], // Başlangıçta boş
   });
+
+  const [loading, setLoading] = useState(false);
 
   // Ülke, Şehir, İlçe seçimlerini yönet
   const handleSelectCountryId = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -122,33 +125,33 @@ const EditBoatForm = ({
   // Form gönderimi
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("Name", form.name);
-    formData.append("Description", form.description);
-    formData.append("PricePerHour", form.pricePerHour?.toString() || "0");
-    formData.append("Capacity", form.capacity?.toString() || "0");
-    formData.append("IsAvailable", form.isAvailable.toString());
-    formData.append("DistrictId", form.districtId?.toString() || "0");
-    formData.append("OwnerId", form.ownerId.toString());
-
-    const now = new Date().toISOString();
-    formData.append("AvailableFrom", now);
-    formData.append("AvailableTo", now);
-
-    if (newImages && newImages.length > 0) {
-      newImages.map((file) => {
-        formData.append("NewImages", file);
-      });
-    } else {
-      formData.append("NewImages", "");
-    }
-
-    form.imagesToDelete.forEach((id) => {
-      formData.append("ImagesToDelete", id.toString());
-    });
-
+    setLoading(true);
     try {
+      const formData = new FormData();
+      formData.append("Name", form.name);
+      formData.append("Description", form.description);
+      formData.append("PricePerHour", form.pricePerHour?.toString() || "0");
+      formData.append("Capacity", form.capacity?.toString() || "0");
+      formData.append("IsAvailable", form.isAvailable.toString());
+      formData.append("DistrictId", form.districtId?.toString() || "0");
+      formData.append("OwnerId", form.ownerId.toString());
+
+      const now = new Date().toISOString();
+      formData.append("AvailableFrom", now);
+      formData.append("AvailableTo", now);
+
+      if (newImages && newImages.length > 0) {
+        newImages.map((file) => {
+          formData.append("NewImages", file);
+        });
+      } else {
+        formData.append("NewImages", "");
+      }
+
+      form.imagesToDelete.forEach((id) => {
+        formData.append("ImagesToDelete", id.toString());
+      });
+
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/boats/${boat.id}`,
         formData,
@@ -169,6 +172,8 @@ const EditBoatForm = ({
       toast.error(
         error?.response?.data?.message || "Tekne güncellenirken hata oluştu."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -398,9 +403,10 @@ const EditBoatForm = ({
 
         <button
           type="submit"
-          className="bg-yellow-500 hover:bg-yellow-400 transition-colors text-white font-semibold py-2 rounded-lg"
+          className="bg-sky-500 hover:bg-sky-400 transition-colors text-white font-semibold py-2 rounded-lg"
+          disabled={loading}
         >
-          Güncelle
+          {loading ? <Spinner /> : "Tekneyi Güncelle"}
         </button>
       </form>
     </Container>

@@ -9,6 +9,7 @@ import TextInput from "@/elements/TextInput";
 import SelectBox from "@/elements/SelectBox";
 import Image from "next/image";
 import { X } from "lucide-react";
+import Spinner from "@/elements/Spinner";
 
 interface AddBoatFormProps {
   ownerId: number;
@@ -264,7 +265,6 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
             id="file-upload"
             type="file"
             accept="image/*"
-            capture="environment"
             multiple
             onChange={handleFileChange}
             className="hidden"
@@ -275,7 +275,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
           className="bg-sky-500 hover:bg-sky-400 transition-colors text-white font-semibold py-2 rounded-lg"
           disabled={loading}
         >
-          {loading ? "Yükleniyor..." : "Tekne Ekle"}
+          {loading ? <Spinner /> : "Tekne Ekle"}
         </button>
       </form>
     </Container>
