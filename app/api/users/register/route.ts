@@ -15,8 +15,6 @@ export async function POST(req: NextRequest) {
     body.password = decryptedPassword;
     body.confirmPassword = decryptedConfirmPassword;
 
-    //const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
     const { data } = await axios.post(
       `https://api.teknekiralagez.com/api/users`,
       body,
@@ -30,8 +28,11 @@ export async function POST(req: NextRequest) {
 
     const response = NextResponse.json(data, { status: 200 });
     response.headers.set("Access-Control-Allow-Origin", "*");
+
+    return response; // ✅ EKSİK OLAN SATIR
   } catch (error: any) {
     console.error("API error:", error?.response?.data || error.toString());
+
     const response = NextResponse.json(
       { error: error.message },
       { status: 500 }
