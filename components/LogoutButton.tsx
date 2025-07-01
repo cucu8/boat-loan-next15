@@ -1,13 +1,9 @@
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 const LogoutButton = () => {
-  const router = useRouter();
-
   const logout = () => {
-    router.push("/");
-    signOut();
+    signOut({ callbackUrl: "/" });
   };
 
   return (
