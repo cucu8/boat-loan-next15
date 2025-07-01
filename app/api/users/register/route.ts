@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     body.confirmPassword = decryptedConfirmPassword;
 
     const { data } = await axios.post(
-      `https://api.teknekiralagez.com/api/users`,
+      `${process.env.NEXT_PUBLIC_API_URL}/users`,
       body,
       {
         httpsAgent,
