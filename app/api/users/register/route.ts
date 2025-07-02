@@ -31,10 +31,10 @@ export async function POST(req: NextRequest) {
 
     return response;
   } catch (error: any) {
-    console.error("API error:", error?.response?.data || error.toString());
+    console.error("SERVER API error:", error?.response?.data?.message);
 
     const response = NextResponse.json(
-      { error: error.message },
+      { error: error?.response?.data?.message },
       { status: 500 }
     );
     response.headers.set("Access-Control-Allow-Origin", "*");

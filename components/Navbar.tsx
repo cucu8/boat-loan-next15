@@ -66,7 +66,10 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden md:hidden"
           >
-            <ResponsiveNavbarMenu />
+            <ResponsiveNavbarMenu
+              setMenuOpen={setMenuOpen}
+              menuOpen={menuOpen}
+            />
           </motion.div>
         )}
       </AnimatePresence>

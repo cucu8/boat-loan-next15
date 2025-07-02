@@ -8,9 +8,10 @@ import clsx from "clsx"; // tailwind class'larını dinamik yönetmek için
 interface NavbarMenuItemProps {
   href: string;
   title: string;
+  onClick?: () => void;
 }
 
-const NavbarMenuItem = ({ title, href }: NavbarMenuItemProps) => {
+const NavbarMenuItem = ({ title, href, onClick }: NavbarMenuItemProps) => {
   const pathname = usePathname();
 
   const isActive = pathname === href;
@@ -18,6 +19,7 @@ const NavbarMenuItem = ({ title, href }: NavbarMenuItemProps) => {
   return (
     <Link
       href={href}
+      onClick={onClick}
       className={clsx(
         "transition font-semibold whitespace-nowrap",
         isActive ? "text-sky-500 " : "text-gray-500 hover:text-sky-400"
