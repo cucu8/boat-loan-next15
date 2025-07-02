@@ -1,7 +1,7 @@
 import Container from "@/components/Container";
 import { Metadata } from "next";
 import React from "react";
-import { Users, Anchor, Star, Heart } from "lucide-react";
+import { Anchor, Star, Heart } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Hakkımızda | Tekne Kiralama Hizmetleri",
