@@ -39,8 +39,8 @@ export default function Navbar() {
                 </>
               ) : (
                 <>
-                  <NavbarMenuItem href={"/login"} title={"Login"} />
-                  <NavbarMenuItem href={"/register"} title={"Register"} />
+                  <NavbarMenuItem href={"/login"} title={"Giriş yap"} />
+                  <NavbarMenuItem href={"/register"} title={"Üye ol"} />
                 </>
               )}
               <ThemeChanger />
