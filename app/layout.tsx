@@ -90,14 +90,16 @@ export default async function RootLayout({
   return (
     <html lang="tr" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${dancingScript.variable} h-screen flex flex-col overflow-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} ${dancingScript.variable} h-screen flex flex-col`}
       >
         <NextAuthProvider session={session}>
-          <div className="shrink-0">
+          <div className="fixed top-0 left-0 w-full z-50">
             <Navbar />
           </div>
-          <main className="flex-1 overflow-auto">{children}</main>
-          <div className="shrink-0">
+          <main className="flex-1 overflow-auto pt-[64px] pb-[64px]">
+            {children}
+          </main>
+          <div className="fixed bottom-0 left-0 w-full z-50">
             <Footer />
           </div>
         </NextAuthProvider>
