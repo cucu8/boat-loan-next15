@@ -39,7 +39,7 @@ const ResponsiveNavbarMenu: React.FC<ResponsiveNavbarMenuProps> = ({
         // User is logged in
         <>
           <NavbarMenuItem
-            href="/profile"
+            href={`/profile/${session.user.id}`}
             title={session.user?.name || "Profile"}
             onClick={() => setMenuOpen(false)}
           />
