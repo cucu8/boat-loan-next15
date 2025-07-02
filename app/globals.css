@@ -95,3 +95,22 @@
     opacity: 1;
   }
 }
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+  background: var(--color-navy-700);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sky-500);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sky-400);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-sky-500) var(--color-navy-700);
+}
