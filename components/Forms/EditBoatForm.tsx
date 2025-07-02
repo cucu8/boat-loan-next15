@@ -168,8 +168,9 @@ const EditBoatForm = ({
         router.push(`/my-boats`);
       }
     } catch (error: any) {
+      console.log(error);
       toast.error(
-        error?.response?.data?.error ||
+        error?.response?.data?.message ||
           "Bir hata oluştu. Lütfen tekrar deneyin."
       );
     } finally {

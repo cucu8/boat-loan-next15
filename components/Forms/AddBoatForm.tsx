@@ -115,7 +115,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
       }
     } catch (error: any) {
       toast.error(
-        error?.response?.data?.error ||
+        error?.response?.data?.message ||
           "Bir hata oluştu. Lütfen tekrar deneyin."
       );
     } finally {
