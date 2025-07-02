@@ -35,11 +35,11 @@ export const metadata: Metadata = {
     title: "Tekne Kiralama Türkiye | Uygun Fiyatlı Yat ve Gulet Kiralama",
     description:
       "Türkiye'nin en güzel koylarında tekne kiralama hizmetleri. Uygun fiyatlarla yat, gulet ve katamaran seçenekleriyle unutulmaz bir deniz tatili planlayın.",
-    url: "https://www.tekneniz.com.tr",
+    url: "https://teknekiralagez.com/",
     siteName: "Tekne Kiralama Türkiye",
     images: [
       {
-        url: "https://www.tekneniz.com.tr/images/og-image.jpg", // Paylaşıldığında görünecek görsel
+        url: "https://teknekiralagez.com/", // Paylaşıldığında görünecek görsel
         width: 1200,
         height: 630,
         alt: "Tekne Kiralama",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     description:
       "Türkiye'nin en güzel koylarında tekne kiralama hizmetleri. Uygun fiyatlarla yat, gulet ve katamaran seçenekleriyle unutulmaz bir deniz tatili planlayın.",
     creator: "@tekneniz", // Twitter kullanıcı adınız
-    images: ["https://www.tekneniz.com.tr/images/twitter-image.jpg"],
+    images: ["https://teknekiralagez.com/"],
   },
   robots: {
     // Arama motoru botlarına yönelik talimatlar
@@ -70,14 +70,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  // Alternatif diller için canonik veya hreflang etiketleri eklenebilir
-  // alternates: {
-  //   canonical: 'https://www.tekneniz.com.tr',
-  //   languages: {
-  //     'en-US': 'https://www.tekneniz.com.tr/en',
-  //     'de-DE': 'https://www.tekneniz.com.tr/de',
-  //   },
-  // },
+  alternates: {
+    canonical: "https://teknekiralagez.com/",
+  },
 };
 
 export default async function RootLayout({

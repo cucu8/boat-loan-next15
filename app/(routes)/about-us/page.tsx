@@ -4,10 +4,50 @@ import React from "react";
 import { Anchor, Star, Heart } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Hakkımızda | Tekne Kiralama Hizmetleri",
+  title: "Hakkımızda | Tekne Kirala Gez",
   description:
-    "Tekne kiralama şirketimiz hakkında detaylı bilgi, vizyonumuz ve ekibimiz.",
-  keywords: "hakkımızda, tekne kiralama şirketi, misyon, vizyon",
+    "Tekne Kirala Gez ekibi, vizyonumuz, misyonumuz ve denizcilik tutkumuz hakkında bilgi alın.",
+  keywords: "hakkımızda, tekne kiralama, ekip, vizyon, misyon, denizcilik",
+  openGraph: {
+    title: "Hakkımızda | Tekne Kirala Gez",
+    description:
+      "Tekne Kirala Gez ekibi, vizyonumuz, misyonumuz ve denizcilik tutkumuz hakkında bilgi alın.",
+    url: "https://teknekiralagez.com/about-us",
+    siteName: "Tekne Kirala Gez",
+    images: [
+      {
+        url: "https://teknekiralagez.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Tekne Kirala Gez - Hakkımızda",
+      },
+    ],
+    locale: "tr_TR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hakkımızda | Tekne Kirala Gez",
+    description:
+      "Tekne Kirala Gez ekibi, vizyonumuz, misyonumuz ve denizcilik tutkumuz hakkında bilgi alın.",
+    creator: "@tekneniz",
+    images: ["https://teknekiralagez.com/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://teknekiralagez.com/about-us",
+  },
 };
 
 const AboutUs = () => {
