@@ -37,10 +37,11 @@ export async function PUT(req: NextRequest, { params }: any) {
 
     return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
-    console.error("API Route Error:", error);
+    const errorMessage =
+      error?.response?.data?.message || error?.message || "Bir hata oluştu.";
     return NextResponse.json(
-      { error: error.message || "An unknown error occurred" },
-      { status: error.response?.status || 500 }
+      { error: errorMessage },
+      { status: error?.response?.status || 500 }
     );
   }
 }

@@ -35,8 +35,10 @@ const DeleteBoatConfirmation = ({
         router.refresh();
       }
     } catch (error: any) {
-      console.error("Silme işlemi sırasında hata oluştu:", error);
-      toast.error(error.message || "Bir hata oluştu.");
+      toast.error(
+        error?.response?.data?.error ||
+          "Bir hata oluştu. Lütfen tekrar deneyin."
+      );
     }
   };
 

@@ -66,12 +66,10 @@ const PasswordEditForm = ({ token, id }: PasswordEditFormProps) => {
         router.push("/");
       }
     } catch (error: any) {
-      console.error("Şifre güncellenirken hata oluştu:", error);
-      if (error.response && error.response.status === 400) {
-        toast.error(error.response.data.message || "Mevcut şifreniz yanlış.");
-      } else {
-        toast.error("Şifre güncellenirken bir hata oluştu.");
-      }
+      toast.error(
+        error?.response?.data?.error ||
+          "Bir hata oluştu. Lütfen tekrar deneyin."
+      );
     }
   };
 

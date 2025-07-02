@@ -22,9 +22,11 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message || error?.message || "Bir hata oluştu.";
     return NextResponse.json(
-      { error: error.message },
-      { status: error.status }
+      { error: errorMessage },
+      { status: error?.response?.status || 500 }
     );
   }
 }

@@ -13,6 +13,8 @@ export async function GET() {
 
     return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const errorMessage =
+      error?.response?.data?.message || error?.message || "Bir hata oluştu.";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

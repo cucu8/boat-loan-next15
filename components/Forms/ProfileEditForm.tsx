@@ -57,9 +57,11 @@ const ProfileEditForm = ({ user, token }: EditUserFormProps) => {
         toast.success("Kullanıcı bilgileri başarıyla güncellendi!");
         //router.push(`/profile`); // Redirect to user profile or dashboard
       }
-    } catch (error) {
-      console.error("Kullanıcı güncellenirken hata oluştu:", error);
-      toast.error("Kullanıcı güncellenirken bir hata oluştu.");
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.error ||
+          "Bir hata oluştu. Lütfen tekrar deneyin."
+      );
     }
   };
 

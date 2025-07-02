@@ -168,9 +168,9 @@ const EditBoatForm = ({
         router.push(`/my-boats`);
       }
     } catch (error: any) {
-      console.error("Tekne güncellenirken hata oluştu:", error);
       toast.error(
-        error?.response?.data?.message || "Tekne güncellenirken hata oluştu."
+        error?.response?.data?.error ||
+          "Bir hata oluştu. Lütfen tekrar deneyin."
       );
     } finally {
       setLoading(false);
