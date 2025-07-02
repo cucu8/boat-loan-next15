@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 
 // Veri çekme fonksiyonu sayfanın dışında tanımlanmış, bu harika!
-async function getBoatData(id: string): Promise<BoatCardModel | null> {
+async function getBoatData(id: any) {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boats/${id}`, {
       next: { revalidate: 3600 },
@@ -117,11 +117,7 @@ export async function generateMetadata({ params }: any) {
   };
 }
 
-export default async function BoatDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function BoatDetailPage({ params }: any) {
   const boat = await getBoatData(params.id);
   if (!boat) {
     notFound();
