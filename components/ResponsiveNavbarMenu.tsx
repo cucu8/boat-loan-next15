@@ -9,7 +9,7 @@ import LogoutButton from "./LogoutButton";
 const ResponsiveNavbarMenu: React.FC = () => {
   const { data: session, status } = useSession(); // Get session data and status
   return (
-    <div className="md:hidden flex flex-col px-4 pb-4 space-y-2">
+    <div className="md:hidden flex flex-col px-4 pb-4 space-y-2 gap-4">
       {navbarMenuItems.map(
         (item: { title: string; href: string }, i: number) => (
           <NavbarMenuItem key={i} href={item.href} title={item.title} />
