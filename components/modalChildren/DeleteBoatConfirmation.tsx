@@ -45,20 +45,20 @@ const DeleteBoatConfirmation = ({
   return (
     <div>
       <div>
-        <span>
+        <span className="text-white">
           {name} isimli tekle listeden kaldırılacaktır. Onaylıyor musunuz ?
         </span>
       </div>
       <div className="flex items-center justify-end mt-4 gap-4">
         <button
           onClick={onClose}
-          className="bg-red-500  text-neutral px-4 py-2 rounded-xl"
+          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl"
         >
           Hayır
         </button>
         <button
           onClick={handleSubmit}
-          className="bg-mint-500 hover:bg-mint-400 text-neutral px-4 py-2 rounded-xl"
+          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl"
         >
           Evet
         </button>
