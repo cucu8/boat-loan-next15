@@ -2,6 +2,19 @@
 @import "tailwindcss";
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+/* Base styles */
+body {
+  background-color: #f8fafc;
+  color: #1e293b;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode styles */
+.dark body {
+  background-color: #0f172a;
+  color: #f1f5f9;
+}
+
 .font-dancing {
   font-family: "Dancing Script", cursive;
 }
@@ -17,7 +30,7 @@
   --color-neutral-100: #fff;
 }
 
-[data-theme="dark"] {
+.dark {
   --color-sky-400: oklch(0.55 0.07 230);
   --color-sky-500: oklch(0.25 0.1 230);
   --color-mint-400: oklch(0.3 0.12 170);
@@ -25,7 +38,7 @@
   --color-sand-400: oklch(0.35 0.05 100);
   --color-sand-500: oklch(0.28 0.06 100);
   --color-navy-700: oklch(0.15 0.04 260);
-  --color-neutral-100: #fff;
+  --color-neutral-100: #1e293b;
 }
 
 .bg-sky-400 {
@@ -71,6 +84,23 @@
 }
 .text-neutral {
   color: white;
+}
+
+/* Dark mode navbar text colors */
+.dark .text-gray-500 {
+  color: #e2e8f0 !important;
+}
+
+.dark .text-gray-500:hover {
+  color: var(--color-sky-400) !important;
+}
+
+.dark .text-neutral {
+  color: #f1f5f9 !important;
+}
+
+.dark .text-sky-500 {
+  color: #7dd3fc !important;
 }
 
 .container {

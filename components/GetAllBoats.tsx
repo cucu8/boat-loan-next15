@@ -84,56 +84,74 @@ const GetAllBoats = ({ boats }: GetAllBoatsProps) => {
 
   return (
     <Container>
-      <TextInput
-        placeholder="Kapasite"
-        handleChange={handleChange}
-        name="capacity"
-        title="Kapasite"
-        value={queries.capacity}
-        hiddenTitle
-        extraClass="w-full sm:w-min"
-      />
-      <TextInput
-        placeholder="Saatlik Ücret"
-        handleChange={handleChange}
-        name="price"
-        title="Saatlik Ücret"
-        value={queries.price}
-        hiddenTitle
-        extraClass="w-full sm:w-min"
-      />
-      <TextInput
-        placeholder="Şehir"
-        handleChange={handleChange}
-        name="city"
-        title="Şehir"
-        value={queries.city}
-        hiddenTitle
-        extraClass="w-full sm:w-min"
-      />
-      <TextInput
-        placeholder="İlçe"
-        handleChange={handleChange}
-        name="disctrict"
-        title="İlçe"
-        value={queries.disctrict}
-        hiddenTitle
-        extraClass="w-full sm:w-min"
-      />
-      <Container>
-        <button
-          onClick={handleClearQueries}
-          className="bg-navy text-sky-500 w-full md:w-min rounded px-4 cursor-pointer "
-        >
-          Temizle
-        </button>
-        <button
-          onClick={handleGetWithQueriesBoats}
-          className="bg-navy w-full text-sky-500 md:w-min rounded px-4 cursor-pointer"
-        >
-          Ara
-        </button>
-      </Container>
+      {/* Arama Formu */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 text-center">
+          Tekne Ara
+        </h2>
+        
+        {/* Arama Alanları */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <TextInput
+            placeholder="Kapasite"
+            handleChange={handleChange}
+            name="capacity"
+            title="Kapasite"
+            value={queries.capacity}
+            hiddenTitle
+            extraClass="w-full"
+          />
+          <TextInput
+            placeholder="Saatlik Ücret"
+            handleChange={handleChange}
+            name="price"
+            title="Saatlik Ücret"
+            value={queries.price}
+            hiddenTitle
+            extraClass="w-full"
+          />
+          <TextInput
+            placeholder="Şehir"
+            handleChange={handleChange}
+            name="city"
+            title="Şehir"
+            value={queries.city}
+            hiddenTitle
+            extraClass="w-full"
+          />
+          <TextInput
+            placeholder="İlçe"
+            handleChange={handleChange}
+            name="disctrict"
+            title="İlçe"
+            value={queries.disctrict}
+            hiddenTitle
+            extraClass="w-full"
+          />
+        </div>
+        
+        {/* Butonlar */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <button
+            onClick={handleClearQueries}
+            className="bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 w-full sm:w-auto"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            Temizle
+          </button>
+          <button
+            onClick={handleGetWithQueriesBoats}
+            className="bg-sky-500 hover:bg-sky-600 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 w-full sm:w-auto"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            Ara
+          </button>
+        </div>
+      </div>
       <Container>
         {allBoats && allBoats.length > 0 ? (
           allBoats.map((boat: BoatCardModel) => (

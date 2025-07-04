@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getServerSession } from "next-auth";
 import NextAuthProvider from "@/providers/NextAuthProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 import { authOptions } from "@/libs/auth";
 
 const geistSans = Geist({
@@ -87,17 +88,24 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${dancingScript.variable} h-screen flex flex-col`}
       >
-        <NextAuthProvider session={session}>
-          <div className="fixed top-0 left-0 w-full z-50">
-            <Navbar />
-          </div>
-          <main className="flex-1 overflow-auto pt-[64px] pb-[64px]">
-            {children}
-          </main>
-          <div className="fixed bottom-0 left-0 w-full z-50">
-            <Footer />
-          </div>
-        </NextAuthProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextAuthProvider session={session}>
+            <div className="fixed top-0 left-0 w-full z-50">
+              <Navbar />
+            </div>
+            <main className="flex-1 overflow-auto pt-[64px] pb-[64px]">
+              {children}
+            </main>
+            <div className="fixed bottom-0 left-0 w-full z-50">
+              <Footer />
+            </div>
+          </NextAuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
