@@ -42,7 +42,7 @@ const Login = () => {
       setLoading(false);
     }
   };
-  console.log(loading);
+
   return (
     <Container>
       <form
