@@ -29,11 +29,14 @@ const dancingScript = Dancing_Script({
 
 export const metadata: Metadata = {
   title: {
-    default: "Tekne Kiralama - Teknekiralagez.com | Türkiye'nin En Güvenilir Tekne Kiralama Platformu",
-    template: "%s | Teknekiralagez.com"
+    default:
+      "Tekne Kiralama - Teknekiralagez.com | Türkiye'nin En Güvenilir Tekne Kiralama Platformu",
+    template: "%s | Teknekiralagez.com",
   },
-  description: "Türkiye'nin en güvenilir tekne kiralama platformu. İstanbul, Bodrum, Antalya ve tüm sahil şehirlerinde uygun fiyatlarla tekne kiralayın. Günlük tekne kiralama, yat turu ve deniz tatili için hemen rezervasyon yapın.",
-  keywords: "tekne kiralama, bot kiralama, yat kiralama, deniz tatili, tekne turu, istanbul tekne kiralama, bodrum tekne kiralama, antalya tekne kiralama, günlük tekne kiralama, yat turu, deniz gezisi, tekne rezervasyonu",
+  description:
+    "Türkiye'nin en güvenilir tekne kiralama platformu. İstanbul, Bodrum, Antalya ve tüm sahil şehirlerinde uygun fiyatlarla tekne kiralayın. Günlük tekne kiralama, yat turu ve deniz tatili için hemen rezervasyon yapın.",
+  keywords:
+    "tekne kiralama, bot kiralama, yat kiralama, deniz tatili, tekne turu, istanbul tekne kiralama, bodrum tekne kiralama, antalya tekne kiralama, günlük tekne kiralama, yat turu, deniz gezisi, tekne rezervasyonu",
   authors: [{ name: "Teknekiralagez.com" }],
   creator: "Teknekiralagez.com",
   publisher: "Teknekiralagez.com",
@@ -44,8 +47,10 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://teknekiralagez.com"),
   openGraph: {
-    title: "Tekne Kiralama - Teknekiralagez.com | Türkiye'nin En Güvenilir Tekne Kiralama Platformu",
-    description: "Türkiye'nin en güvenilir tekne kiralama platformu. İstanbul, Bodrum, Antalya ve tüm sahil şehirlerinde uygun fiyatlarla tekne kiralayın. Günlük tekne kiralama, yat turu ve deniz tatili için hemen rezervasyon yapın.",
+    title:
+      "Tekne Kiralama - Teknekiralagez.com | Türkiye'nin En Güvenilir Tekne Kiralama Platformu",
+    description:
+      "Türkiye'nin en güvenilir tekne kiralama platformu. İstanbul, Bodrum, Antalya ve tüm sahil şehirlerinde uygun fiyatlarla tekne kiralayın. Günlük tekne kiralama, yat turu ve deniz tatili için hemen rezervasyon yapın.",
     url: "https://teknekiralagez.com",
     siteName: "Teknekiralagez.com",
     images: [
@@ -61,8 +66,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tekne Kiralama - Teknekiralagez.com | Türkiye'nin En Güvenilir Tekne Kiralama Platformu",
-    description: "Türkiye'nin en güvenilir tekne kiralama platformu. İstanbul, Bodrum, Antalya ve tüm sahil şehirlerinde uygun fiyatlarla tekne kiralayın.",
+    title:
+      "Tekne Kiralama - Teknekiralagez.com | Türkiye'nin En Güvenilir Tekne Kiralama Platformu",
+    description:
+      "Türkiye'nin en güvenilir tekne kiralama platformu. İstanbul, Bodrum, Antalya ve tüm sahil şehirlerinde uygun fiyatlarla tekne kiralayın.",
     images: ["/og-image.jpg"],
     creator: "@teknekiralagez",
   },
@@ -83,7 +90,7 @@ export const metadata: Metadata = {
     canonical: "https://teknekiralagez.com",
   },
   verification: {
-     google: "google-site-verification",
+     google: "YQSSypwXso2",
    },
 };
 
@@ -96,6 +103,12 @@ export default async function RootLayout({
 
   return (
     <html lang="tr" suppressHydrationWarning>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="YQ5SypwXsc2VtE3Y6oyVdM_Z5W5KYDw72Xk_aBJ2h6k"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${dancingScript.variable} h-screen flex flex-col`}
       >
