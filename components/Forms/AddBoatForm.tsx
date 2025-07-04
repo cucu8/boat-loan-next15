@@ -222,7 +222,7 @@ const AddBoatForm = ({ ownerId, countries, token }: AddBoatFormProps) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 rows={3}
-                className="rounded-md px-3 py-2 bg-neutral-100 text-black focus:outline-none focus:ring-2 focus:ring-sky-500"
+                className="rounded-md px-3 py-2 bg-sky-400 text-navy focus:outline-none focus:ring-2 focus:ring-sky-500"
                 placeholder="Tekne açıklamasını girin"
               />
               <ErrorMessage
