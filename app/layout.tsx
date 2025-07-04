@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import NextAuthProvider from "@/providers/NextAuthProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { authOptions } from "@/libs/auth";
+import StructuredData from "@/components/StructuredData";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,53 +28,63 @@ const dancingScript = Dancing_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Tekne Kiralama Türkiye | Uygun Fiyatlı Yat ve Gulet Kiralama",
-  description:
-    "Türkiye'nin en güzel koylarında tekne kiralama hizmetleri. Uygun fiyatlarla yat, gulet ve katamaran seçenekleriyle unutulmaz bir deniz tatili planlayın.",
-  keywords:
-    "tekne kiralama, yat kiralama, gulet kiralama, katamaran kiralama, Türkiye tekne, deniz tatili, mavi tur, İstanbul tekne kiralama, Fethiye tekne kiralama",
+  title: {
+    default: "Tekne Kiralama - Teknekiralagez.com | Türkiye'nin En Güvenilir Tekne Kiralama Platformu",
+    template: "%s | Teknekiralagez.com"
+  },
+  description: "Türkiye'nin en güvenilir tekne kiralama platformu. İstanbul, Bodrum, Antalya ve tüm sahil şehirlerinde uygun fiyatlarla tekne kiralayın. Günlük tekne kiralama, yat turu ve deniz tatili için hemen rezervasyon yapın.",
+  keywords: "tekne kiralama, bot kiralama, yat kiralama, deniz tatili, tekne turu, istanbul tekne kiralama, bodrum tekne kiralama, antalya tekne kiralama, günlük tekne kiralama, yat turu, deniz gezisi, tekne rezervasyonu",
+  authors: [{ name: "Teknekiralagez.com" }],
+  creator: "Teknekiralagez.com",
+  publisher: "Teknekiralagez.com",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://teknekiralagez.com"),
   openGraph: {
-    title: "Tekne Kiralama Türkiye | Uygun Fiyatlı Yat ve Gulet Kiralama",
-    description:
-      "Türkiye'nin en güzel koylarında tekne kiralama hizmetleri. Uygun fiyatlarla yat, gulet ve katamaran seçenekleriyle unutulmaz bir deniz tatili planlayın.",
-    url: "https://teknekiralagez.com/",
-    siteName: "Tekne Kiralama Türkiye",
+    title: "Tekne Kiralama - Teknekiralagez.com | Türkiye'nin En Güvenilir Tekne Kiralama Platformu",
+    description: "Türkiye'nin en güvenilir tekne kiralama platformu. İstanbul, Bodrum, Antalya ve tüm sahil şehirlerinde uygun fiyatlarla tekne kiralayın. Günlük tekne kiralama, yat turu ve deniz tatili için hemen rezervasyon yapın.",
+    url: "https://teknekiralagez.com",
+    siteName: "Teknekiralagez.com",
     images: [
       {
-        url: "https://teknekiralagez.com/", // Paylaşıldığında görünecek görsel
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Tekne Kiralama",
+        alt: "Tekne Kiralama - Teknekiralagez.com",
       },
     ],
     locale: "tr_TR",
     type: "website",
   },
   twitter: {
-    // Twitter kartları için meta etiketleri
     card: "summary_large_image",
-    title: "Tekne Kiralama Türkiye | Uygun Fiyatlı Yat ve Gulet Kiralama",
-    description:
-      "Türkiye'nin en güzel koylarında tekne kiralama hizmetleri. Uygun fiyatlarla yat, gulet ve katamaran seçenekleriyle unutulmaz bir deniz tatili planlayın.",
-    creator: "@tekneniz", // Twitter kullanıcı adınız
-    images: ["https://teknekiralagez.com/"],
+    title: "Tekne Kiralama - Teknekiralagez.com | Türkiye'nin En Güvenilir Tekne Kiralama Platformu",
+    description: "Türkiye'nin en güvenilir tekne kiralama platformu. İstanbul, Bodrum, Antalya ve tüm sahil şehirlerinde uygun fiyatlarla tekne kiralayın.",
+    images: ["/og-image.jpg"],
+    creator: "@teknekiralagez",
   },
   robots: {
-    // Arama motoru botlarına yönelik talimatlar
     index: true,
     follow: true,
-    nocache: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
-      noimageindex: true,
+      noimageindex: false,
       "max-video-preview": -1,
+      "max-image-preview": "large",
       "max-snippet": -1,
     },
   },
   alternates: {
-    canonical: "https://teknekiralagez.com/",
+    canonical: "https://teknekiralagez.com",
   },
+  verification: {
+     google: "google-site-verification",
+   },
 };
 
 export default async function RootLayout({
@@ -88,6 +99,9 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${dancingScript.variable} h-screen flex flex-col`}
       >
+        <StructuredData type="website" />
+        <StructuredData type="organization" />
+        <StructuredData type="service" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
